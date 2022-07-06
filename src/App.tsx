@@ -1,12 +1,17 @@
 import ProcedureForm from "./components/ProcedureForm";
-import { Container, Stack } from "@mui/material";
+import { Container, Box } from "@mui/material";
 
 export default function App() {
   return (
-    <Container maxWidth="sm">
-      <Stack direction="column" justifyContent="center">
+    <Container maxWidth="md">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
         <ProcedureForm />
-      </Stack>
+      </Box>
     </Container>
   );
 }

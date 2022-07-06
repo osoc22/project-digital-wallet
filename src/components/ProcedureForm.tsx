@@ -1,4 +1,4 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 const categories = ["Economy", "Housing", "Employment", "Justice"];
@@ -19,7 +19,9 @@ export default function ProcedureForm() {
 
   return (
     <div>
-      <h1>Create a new procedure</h1>
+      <Typography variant="h4" component="h1" mb={2}>
+        Create a new procedure
+      </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           <TextField
@@ -62,7 +64,8 @@ export default function ProcedureForm() {
             error={Boolean(errors.description)}
             helperText={errors.description && errors.description.message}
           />
-          <Button type="submit" variant="contained">
+
+          <Button type="submit" variant="contained" sx={{ alignSelf: "end" }}>
             Next
           </Button>
         </Stack>
