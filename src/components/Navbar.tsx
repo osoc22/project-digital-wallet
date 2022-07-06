@@ -7,9 +7,9 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
 
 const pages = ['Procedure set up', 'Citizen data selection', 'Design', 'Sections', 'Logic'];
-const settings = ['Form preview', 'Export', 'Share'];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -60,43 +60,12 @@ const Navbar = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {settings.map((setting) => (
-              <Button
-                key={setting}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {setting}
-              </Button>
-            ))}
-          </Box>
+          <Stack direction='row' spacing={2}>
+              <Button color='inherit'>Form Preview</Button>
+              <Button color='inherit'>Export</Button>
+              <Button color='inherit'>Share</Button>
+          </Stack>
+
         </Toolbar>
       </Container>
     </AppBar>
