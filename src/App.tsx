@@ -1,5 +1,7 @@
 import ProcedureForm from "./components/ProcedureForm";
 import { Container, Box } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
+import ProcedureDesign from "./components/ProcedureDesign";
 
 export default function App() {
   return (
@@ -10,7 +12,10 @@ export default function App() {
         alignItems="center"
         minHeight="100vh"
       >
-        <ProcedureForm />
+        <Routes>
+          <Route path="/" element={<ProcedureForm />} />
+          <Route path="design" element={<ProcedureDesign />} />
+        </Routes>
       </Box>
     </Container>
   );

@@ -1,5 +1,7 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
+import { useCallback } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const categories = ["Economy", "Housing", "Employment", "Justice"];
 
@@ -10,12 +12,20 @@ type FormValues = {
 };
 
 export default function ProcedureForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<FormValues> = useCallback(
+    (data) => {
+      console.log(data);
+      navigate("design");
+    },
+    [navigate]
+  );
 
   return (
     <div>
