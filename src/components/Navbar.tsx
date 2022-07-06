@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 
-const pages = ['Procedure set up', 'Citizen data selection', 'Design', 'Sections', 'Logic'];
+const pages = ['Procedure set up', 'Citizen data selection', 'Design'];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
