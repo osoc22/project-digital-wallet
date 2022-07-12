@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import ProcedureDesign from "./components/ProcedureDesign";
 import Navbar from "./components/Navbar";
+import Preview from "./components/Preview";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<ProcedureForm />} />
           <Route path="design" element={<ProcedureDesign />} />
+          <Route path="preview" element={<Preview />} />
         </Routes>
       </Box>
     </>
