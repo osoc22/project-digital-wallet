@@ -7,6 +7,7 @@ const ajv = new Ajv({
   useDefaults: true,
   strict: true,
   keywords: ["uniforms", "options"],
+  $data: true,
 });
 
 addFormats(ajv);
