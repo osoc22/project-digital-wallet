@@ -3,10 +3,11 @@ import { JSONSchemaType } from "ajv";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { DeepPartial } from "uniforms";
-import { AutoForm } from "uniforms-mui";
+import { AutoFields, AutoForm, ErrorsField, SubmitField } from "uniforms-mui";
 import { createBridge } from "../bridge";
 
 const categories = ["Economy", "Housing", "Employment", "Justice"] as const;
+
 export interface Procedure {
   name: string;
   category: typeof categories[number];
@@ -39,11 +40,13 @@ export default function ProcedureForm() {
   );
 
   return (
-    <div>
+    <AutoForm schema={createBridge(schema)} onSubmit={submit}>
       <Typography variant="h4" component="h1" mb={2}>
         Create a new procedure
       </Typography>
-      <AutoForm schema={createBridge(schema)} onSubmit={submit} />
-    </div>
+      <AutoFields />
+      <ErrorsField />
+      <SubmitField />
+    </AutoForm>
   );
 }
