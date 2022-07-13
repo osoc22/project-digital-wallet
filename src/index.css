@@ -49,9 +49,9 @@ body {
 }
 
 .builder-helper-footer-items {
-  align-self: center;
+  display: flex;
 }
 
-.builder-helper-footer-items span {
-  margin-right: 15px;
+.builder-helper-footer-items Button{
+
 }

@@ -7,13 +7,14 @@ import BuilderHelper from './BuilderHelper';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import Button from '@mui/material/Button';
 
 export default function ProcedureDesign() {
   return (
     <div className="builder-container">
       <div className="builder-sidebar">
-        <span className="builder-item"><LocalLibraryOutlinedIcon /></span>
-        <span className="builder-item"><SettingsOutlinedIcon /></span>
+        <Button className="builder-item"><LocalLibraryOutlinedIcon /></Button>
+        <Button className="builder-item"><SettingsOutlinedIcon /></Button>
       </div>
       <div className="builder-main">
         <div className='builder-title-section'>
@@ -31,7 +32,9 @@ export default function ProcedureDesign() {
           </Box>
         </div>
         <Box sx={{display:'flex', justifyContent:'center'}}>
-          <AddCircleOutlineIcon sx={{width:'60px'}} />
+          <Button>
+            <AddCircleOutlineIcon sx={{width:'60px'}} />
+          </Button>
         </Box>
       </div>
       <div className="builder-helper">
