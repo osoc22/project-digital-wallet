@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import ProcedureDesign from "./components/ProcedureDesign";
 import Navbar from "./components/Navbar";
 import Preview from "./components/Preview";
+import Builder from "./components/Builder";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/" element={<ProcedureForm />} />
           <Route path="design" element={<ProcedureDesign />} />
           <Route path="preview" element={<Preview />} />
+          <Route path="builder" element={<Builder />} />
         </Routes>
       </Box>
     </>
