@@ -28,7 +28,7 @@ export default function StepPreview({ step, part, back, next }: Props) {
   }, [step]);
 
   return (
-    <Stack justifyContent="space-between" height="65%">
+    <Stack justifyContent="space-between" height="50%">
       <AutoForm
         schema={createBridge(jsonSchema)}
         onSubmit={next}

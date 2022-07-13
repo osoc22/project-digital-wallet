@@ -47,33 +47,53 @@ export default function Preview() {
     <Container maxWidth="xs">
       <Box
         sx={{
-          height: "100%",
-          width: "100%",
+          height: "812px",
+          width: "375px",
           display: "inline-block",
-          p: 1,
-          mx: 1,
-          bgcolor: "grey.100",
-          color: "grey.800",
-          border: "1px solid",
-          borderColor: "grey.300",
-          borderRadius: 2,
+          borderRadius: "30px",
           fontSize: "0.875rem",
           fontWeight: "700",
           textAlign: "center",
+          padding: "10px 10px 10px",
+          boxShadow: "0 0 20px #e2e2e2",
         }}
       >
-        <Box style={{ textAlign: "left", height: 600 }} p={2}>
-          <Box sx={{ width: "100%", py: 5 }}>
-            <LinearProgress variant="determinate" value={progress} />
-          </Box>
-          <h2 style={{ marginBottom: 80 }}>{procedure.name}</h2>
-          <StepPreview step={step} part={currentPage} next={next} back={back} />
+        <Box
+          sx={{
+            width: "175px",
+            height: "30px",
+            background: "white",
+            position: "absolute",
+            margin: "0 100px",
+            borderRadius: "0 0 20px 20px",
+          }}
+        ></Box>
+        <Box
+          sx={{
+            textAlign: "left",
+            width: "100%",
+            height: "100%",
+            background: "#f2f2f2",
+            borderRadius: "30px",
+            overflowY: "auto",
+          }}
+        >
+          <Stack p={2} spacing={2} height="95%" justifyContent="space-between">
+            <Box pt={4}>
+              <LinearProgress variant="determinate" value={progress} />
+            </Box>
+            <h2>{procedure.name}</h2>
+            <StepPreview
+              step={step}
+              part={currentPage}
+              next={next}
+              back={back}
+            />
+            <Box textAlign="center" justifySelf="end">
+              Part {currentPage} of {maxPage}
+            </Box>
+          </Stack>
         </Box>
-        <Stack spacing={2} display={"flex"} marginBottom={5} marginTop={5}>
-          <span>
-            Part {currentPage} of {maxPage}
-          </span>
-        </Stack>
       </Box>
     </Container>
   );
