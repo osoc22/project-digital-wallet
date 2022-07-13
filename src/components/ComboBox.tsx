@@ -8,7 +8,7 @@ export default function ComboBox() {
       disablePortal
       id="combo-box-demo"
       options={dataOptions}
-      sx={{ width: 200 }}
+      sx={{ width: 200, marginBottom:'5px' }}
       renderInput={(params) => <TextField {...params} label="email" />}
     />
   );

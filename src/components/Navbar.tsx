@@ -8,8 +8,10 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
-const pages = ['Procedure set up', 'Citizen data selection', 'Design'];
+const pages = ['Procedure overview', 'Conmponent Builder'];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -22,7 +24,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none'} }}>
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -61,9 +63,9 @@ const Navbar = () => {
           </Box>
 
           <Stack direction='row' spacing={2}>
-              <Button color='inherit'>Form Preview</Button>
-              <Button color='inherit'>Export</Button>
-              <Button color='inherit'>Share</Button>
+              <Button color='inherit'><RemoveRedEyeOutlinedIcon /></Button>
+              <Button color='inherit'><ShareOutlinedIcon /></Button>
+              <Button color='inherit'>Publish</Button>
           </Stack>
 
         </Toolbar>

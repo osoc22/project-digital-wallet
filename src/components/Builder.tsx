@@ -4,15 +4,16 @@ import TextField from './TextField';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import BuilderHelper from './BuilderHelper';
-
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 export default function ProcedureDesign() {
   return (
     <div className="builder-container">
       <div className="builder-sidebar">
-        <span className="builder-item">item1</span>
-        <span className="builder-item">item2</span>
-        <span className="builder-item">item3</span>
+        <span className="builder-item"><LocalLibraryOutlinedIcon /></span>
+        <span className="builder-item"><SettingsOutlinedIcon /></span>
       </div>
       <div className="builder-main">
         <div className='builder-title-section'>
@@ -29,6 +30,9 @@ export default function ProcedureDesign() {
             <TextField />
           </Box>
         </div>
+        <Box sx={{display:'flex', justifyContent:'center'}}>
+          <AddCircleOutlineIcon sx={{width:'60px'}} />
+        </Box>
       </div>
       <div className="builder-helper">
         <Container>
