@@ -1,6 +1,7 @@
 export interface Step {
   name: string;
   properties: object;
+  required?: string[];
 }
 
 export const contactDetails: Step = {
@@ -10,6 +11,7 @@ export const contactDetails: Step = {
     repeatEmail: { type: "string", const: { $data: "1/email" } },
     phone: { type: "string" },
   },
+  required: ["email", "repeatEmail", "phone"],
 };
 
 export const theftInfo: Step = {
@@ -23,6 +25,7 @@ export const theftInfo: Step = {
       type: "string",
     },
   },
+  required: [/*"theftDate",*/ "theftLocation"],
 };
 
 export const bikeInfo: Step = {
@@ -32,4 +35,5 @@ export const bikeInfo: Step = {
       type: "string",
     },
   },
+  required: ["bikeBrand"],
 };

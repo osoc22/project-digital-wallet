@@ -19,11 +19,13 @@ export default function StepPreview({ step, part, back, next }: Props) {
   let formRef: FormRef | null = null;
 
   const jsonSchema = useMemo(() => {
+    const { name, properties, required } = step;
+
     return {
       type: "object",
-      title: step.name,
-      properties: step.properties,
-      required: Object.keys(step.properties),
+      title: name,
+      properties,
+      required,
     };
   }, [step]);
 
