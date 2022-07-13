@@ -5,7 +5,7 @@ import ControlledRadioButtonsGroup from './RadioButton';
 import SwitchLabels from './SwitchLabels';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
+import Button from '@mui/material/Button';
 
 export default function BuilderHelper() {
   return (
@@ -19,8 +19,8 @@ export default function BuilderHelper() {
         <div className='builder-helper-footer'>
           <SwitchLabels />
           <div className='builder-helper-footer-items'>
-            <span><ContentCopyIcon /></span>
-            <span><DeleteOutlineIcon /></span>
+            <Button><ContentCopyIcon /></Button>
+            <Button><DeleteOutlineIcon /></Button>
           </div>
         </div>
       </Box>
