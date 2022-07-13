@@ -4,15 +4,18 @@ import StepPreview from "./StepPreview";
 import { contactDetails, theftInfo } from "../steps";
 import { useMemo, useState } from "react";
 import { LinearProgress, Stack } from "@mui/material";
+import { Procedure } from "./ProcedureForm";
 
 export default function Preview() {
-  const [procedure] = useState({
+  const [procedure] = useState<Procedure>({
     name: "Bike Theft Report",
+    category: "Justice",
+    description: "Report a bike theft",
     steps: [contactDetails, theftInfo],
   });
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const maxPage = useMemo(() => procedure.steps.length, [procedure]);
-  const progress = useMemo(() => (page / maxPage) * 100, [page, maxPage]);
+  const progress = useMemo(() => (page + 1 / maxPage) * 100, [page, maxPage]);
 
   return (
     <div style={{ marginTop: "50px", marginBottom: "50px" }}>
@@ -42,12 +45,14 @@ export default function Preview() {
               <LinearProgress variant="determinate" value={progress} />
             </Box>
             <h3 style={{ marginBottom: 80 }}>{procedure.name}</h3>
-            <h3>Question {page}</h3>
-            <StepPreview schema={contactDetails} onSubmit={console.log} />
+            <h3>
+              Part {page + 1}: {procedure.steps[page].name}
+            </h3>
+            <StepPreview step={contactDetails} onSubmit={console.log} />
           </Box>
           <Stack spacing={2} display={"flex"} marginBottom={5} marginTop={5}>
             <span>
-              Question {page} of {maxPage}
+              Part {page + 1} of {maxPage}
             </span>
           </Stack>
         </Box>

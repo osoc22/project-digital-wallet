@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { DeepPartial } from "uniforms";
 import { AutoFields, AutoForm, ErrorsField, SubmitField } from "uniforms-mui";
 import { createBridge } from "../bridge";
+import { Step } from "../steps";
 
 const categories = ["Economy", "Housing", "Employment", "Justice"] as const;
 
@@ -12,9 +13,10 @@ export interface Procedure {
   name: string;
   category: typeof categories[number];
   description: string;
+  steps: Step[];
 }
 
-const schema: JSONSchemaType<Procedure> = {
+const schema: JSONSchemaType<Omit<Procedure, "steps">> = {
   title: "Procedure",
   type: "object",
   properties: {

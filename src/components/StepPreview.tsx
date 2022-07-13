@@ -2,20 +2,22 @@ import { Button, Stack } from "@mui/material";
 import { useMemo } from "react";
 import { AutoFields, AutoForm, ErrorsField } from "uniforms-mui";
 import { createBridge } from "../bridge";
+import { Step } from "../steps";
 
 interface Props {
-  schema: object;
+  step: Step;
   onSubmit: (data: any) => void;
 }
 
-export default function StepPreview({ schema, onSubmit }: Props) {
+export default function StepPreview({ step, onSubmit }: Props) {
   const jsonSchema = useMemo(() => {
     return {
       type: "object",
-      properties: schema,
-      required: Object.keys(schema),
+      title: step.name,
+      properties: step.properties,
+      required: Object.keys(step.properties),
     };
-  }, [schema]);
+  }, [step]);
 
   return (
     <Stack justifyContent="space-between" height="65%">
