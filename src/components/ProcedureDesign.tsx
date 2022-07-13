@@ -1,7 +1,6 @@
 import { Box, Divider, Grid } from "@mui/material";
 import { useState } from "react";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
-import { isTemplateSpan } from "typescript";
 import Droppable from "./Droppable";
 
 export default function ProcedureDesign() {
@@ -9,6 +8,12 @@ export default function ProcedureDesign() {
     { id: "1", content: "Step 1" },
     { id: "2", content: "Step 2" },
     { id: "3", content: "Step 3" },
+  ]);
+
+  const [questions, setQuestions] = useState([
+    { id: "1", content: "Question 1" },
+    { id: "2", content: "Question 2" },
+    { id: "3", content: "Question 3" },
   ]);
 
   const reorder = (list: any, startIndex: any, endIndex: any) => {
@@ -71,6 +76,50 @@ export default function ProcedureDesign() {
       <Divider orientation="vertical" />
       <Grid item xs={6}>
         <span>Design</span>
+        <DragDropContext onDragEnd={(result) => {
+          const { destination, source, draggableId } = result;
+
+          // item is being dragged to where it came from, do nothing
+          if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
+            return;
+          }
+      
+          const orderedQuestions = reorder(
+            questions,
+            result.source.index,
+            result.destination?.index ?? 0
+          );
+      
+          // @ts-ignore
+          setQuestions(orderedQuestions);
+        }}>
+          <Droppable droppableId="questionList">
+            {(provided) => (
+              <div ref={provided.innerRef}>
+                {questions.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided) => (
+                      <Box
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        sx={{
+                          borderRadius: 1,
+                          border: 2,
+                        }}
+                        p={2}
+                        m={2}
+                      >
+                        {item.content}
+                      </Box>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </Grid>
       <Divider orientation="vertical" />
       <Grid item xs>
