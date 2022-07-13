@@ -23,17 +23,9 @@ export default function Preview() {
     [currentPage, maxPage]
   );
 
-  const back = useCallback(
-    (data: object) => {
-      let newResponse = response;
-      Object.keys(data).forEach((key) => {
-        delete newResponse[key as keyof typeof response];
-      });
-      setResponse(newResponse);
-      setPage(Math.max(0, page - 1));
-    },
-    [response, page]
-  );
+  const back = useCallback(() => {
+    setPage(Math.max(0, page - 1));
+  }, [page]);
 
   const next = useCallback(
     (data: object) => {

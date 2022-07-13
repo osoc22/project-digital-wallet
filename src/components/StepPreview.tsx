@@ -7,7 +7,7 @@ import { Step } from "../steps";
 interface Props {
   step: Step;
   part: number;
-  back: (data: object) => void;
+  back: () => void;
   next: (data: object) => void;
 }
 
@@ -43,7 +43,7 @@ export default function StepPreview({ step, part, back, next }: Props) {
         <ErrorsField />
       </AutoForm>
       <Stack spacing={2} direction="row" justifyContent="space-between">
-        <Button variant="contained" onClick={() => back(step.properties)}>
+        <Button variant="contained" onClick={back}>
           Back
         </Button>
         <Button variant="contained" onClick={() => formRef?.submit()}>
