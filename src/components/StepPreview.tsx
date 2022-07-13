@@ -1,8 +1,12 @@
 import { Button, Stack } from "@mui/material";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { AutoFields, AutoForm, ErrorsField } from "uniforms-mui";
 import { createBridge } from "../bridge";
 import { Step } from "../steps";
+
+type Indexable = {
+  [key: string]: any;
+};
 
 interface Props {
   step: Step;
@@ -29,12 +33,27 @@ export default function StepPreview({ step, part, back, next }: Props) {
     };
   }, [step]);
 
+  const transform = useCallback(
+    (mode: "form" | "validate" | "submit", model: Indexable) => {
+      Object.keys(model).forEach((k) => {
+        if (isNaN(Date.parse(model[k]))) return;
+
+        if (mode === "form") model[k] = new Date(model[k]);
+        else model[k] = model[k].toISOString();
+      });
+
+      return model;
+    },
+    []
+  );
+
   return (
     <Stack justifyContent="space-between" height="50%">
       <AutoForm
         schema={createBridge(jsonSchema)}
         onSubmit={next}
         ref={(ref) => (formRef = ref)}
+        modelTransform={transform}
       >
         <h3>
           Part {part}: {step.name}

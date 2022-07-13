@@ -17,15 +17,15 @@ export const contactDetails: Step = {
 export const theftInfo: Step = {
   name: "Theft info",
   properties: {
-    // theftDate: {
-    //   type: "string",
-    //   format: "date-time",
-    // },
+    theftDate: {
+      type: "string",
+      format: "date-time",
+    },
     theftLocation: {
       type: "string",
     },
   },
-  required: [/*"theftDate",*/ "theftLocation"],
+  required: ["theftDate", "theftLocation"],
 };
 
 export const bikeInfo: Step = {
