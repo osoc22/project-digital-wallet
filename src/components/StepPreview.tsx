@@ -6,10 +6,18 @@ import { Step } from "../steps";
 
 interface Props {
   step: Step;
-  onSubmit: (data: any) => void;
+  part: number;
+  back: (data: object) => void;
+  next: (data: object) => void;
 }
 
-export default function StepPreview({ step, onSubmit }: Props) {
+interface FormRef {
+  submit: () => void;
+}
+
+export default function StepPreview({ step, part, back, next }: Props) {
+  let formRef: FormRef | null = null;
+
   const jsonSchema = useMemo(() => {
     return {
       type: "object",
@@ -21,13 +29,24 @@ export default function StepPreview({ step, onSubmit }: Props) {
 
   return (
     <Stack justifyContent="space-between" height="65%">
-      <AutoForm schema={createBridge(jsonSchema)} onSubmit={onSubmit}>
+      <AutoForm
+        schema={createBridge(jsonSchema)}
+        onSubmit={next}
+        ref={(ref) => (formRef = ref)}
+      >
+        <h3>
+          Part {part}: {step.name}
+        </h3>
         <AutoFields />
         <ErrorsField />
       </AutoForm>
       <Stack spacing={2} direction="row" justifyContent="space-between">
-        <Button variant="contained">Back</Button>
-        <Button variant="contained">Next</Button>
+        <Button variant="contained" onClick={() => back(step.properties)}>
+          Back
+        </Button>
+        <Button variant="contained" onClick={() => formRef?.submit()}>
+          Next
+        </Button>
       </Stack>
     </Stack>
   );
