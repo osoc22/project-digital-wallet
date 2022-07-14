@@ -10,6 +10,10 @@ export default function ProcedureDesign() {
     { id: "3", content: "Step 3" },
   ]);
 
+  // TODO: Remove following two lines
+  const obj = {a: "456", b: "123"};
+  obj = {...obj, a: "789"}
+
   const [questions, setQuestions] = useState([
     { id: "1", content: "Question 1" },
     { id: "2", content: "Question 2" },
