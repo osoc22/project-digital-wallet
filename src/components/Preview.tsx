@@ -4,7 +4,7 @@ import StepPreview from "./StepPreview";
 import { contactDetails, theftInfo, bikeInfo } from "../steps";
 import { useCallback, useMemo, useState } from "react";
 import { LinearProgress, Stack } from "@mui/material";
-import { Procedure } from "./ProcedureForm";
+import { Procedure } from "../ProcedureProvider";
 
 export default function Preview() {
   const [procedure] = useState<Procedure>({

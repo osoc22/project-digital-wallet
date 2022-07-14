@@ -1,8 +1,4 @@
-export interface Step {
-  name: string;
-  properties: object;
-  required?: string[];
-}
+import { Step } from "./ProcedureProvider";
 
 export const contactDetails: Step = {
   name: "Contact details",

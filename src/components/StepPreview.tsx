@@ -2,7 +2,7 @@ import { Button, Stack } from "@mui/material";
 import { useCallback, useMemo } from "react";
 import { AutoFields, AutoForm, ErrorsField } from "uniforms-mui";
 import { createBridge } from "../bridge";
-import { Step } from "../steps";
+import { Step } from "../ProcedureProvider";
 
 type Indexable = {
   [key: string]: any;
