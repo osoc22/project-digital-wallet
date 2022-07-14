@@ -2,7 +2,7 @@ import { createContext, ReactNode, useCallback, useContext, useMemo, useState } 
 
 export const categories = ["Economy", "Housing", "Employment", "Justice"] as const;
 
-export interface Step {
+export interface Component {
   name: string;
   properties: object;
   required?: string[];
@@ -12,7 +12,7 @@ export interface Procedure {
   name: string;
   category: typeof categories[number];
   description: string;
-  steps: Step[];
+  components: Component[];
 }
 
 interface Context {

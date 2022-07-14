@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import StepPreview from "./StepPreview";
-import { contactDetails, theftInfo, bikeInfo } from "../steps";
+import ComponentPreview from "./ComponentPreview";
+import { contactDetails, theftInfo, bikeInfo } from "../components";
 import { useCallback, useMemo, useState } from "react";
 import { LinearProgress, Stack } from "@mui/material";
 import { Procedure } from "../ProcedureProvider";
@@ -11,13 +11,13 @@ export default function Preview() {
     name: "Bike Theft Report",
     category: "Justice",
     description: "Report a bike theft",
-    steps: [contactDetails, theftInfo, bikeInfo],
+    components: [contactDetails, theftInfo, bikeInfo],
   });
   const [response, setResponse] = useState({});
   const [page, setPage] = useState(0);
   const currentPage = useMemo(() => page + 1, [page]);
-  const maxPage = useMemo(() => procedure.steps.length, [procedure]);
-  const step = useMemo(() => procedure.steps[page], [procedure, page]);
+  const maxPage = useMemo(() => procedure.components.length, [procedure]);
+  const component = useMemo(() => procedure.components[page], [procedure, page]);
   const progress = useMemo(
     () => (currentPage / maxPage) * 100,
     [currentPage, maxPage]
@@ -75,8 +75,8 @@ export default function Preview() {
               <LinearProgress variant="determinate" value={progress} />
             </Box>
             <h2>{procedure.name}</h2>
-            <StepPreview
-              step={step}
+            <ComponentPreview
+              component={component}
               part={currentPage}
               next={next}
               back={back}

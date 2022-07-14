@@ -7,7 +7,7 @@ import { AutoFields, AutoForm, ErrorsField, SubmitField } from "uniforms-mui";
 import { createBridge } from "../bridge";
 import { categories, Procedure } from "../ProcedureProvider";
 
-const schema: JSONSchemaType<Omit<Procedure, "steps">> = {
+const schema: JSONSchemaType<Omit<Procedure, "components">> = {
   title: "Procedure",
   type: "object",
   properties: {

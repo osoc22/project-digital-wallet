@@ -1,6 +1,6 @@
-import { Step } from "./ProcedureProvider";
+import { Component } from "./ProcedureProvider";
 
-export const contactDetails: Step = {
+export const contactDetails: Component = {
   name: "Contact details",
   properties: {
     email: { type: "string" },
@@ -10,7 +10,7 @@ export const contactDetails: Step = {
   required: ["email", "repeatEmail", "phone"],
 };
 
-export const theftInfo: Step = {
+export const theftInfo: Component = {
   name: "Theft info",
   properties: {
     theftDate: {
@@ -24,7 +24,7 @@ export const theftInfo: Step = {
   required: ["theftDate", "theftLocation"],
 };
 
-export const bikeInfo: Step = {
+export const bikeInfo: Component = {
   name: "Bike info",
   properties: {
     bikeBrand: {
