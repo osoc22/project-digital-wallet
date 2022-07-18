@@ -21,6 +21,7 @@
     "uniforms": "^3.10.0-rc.1",
     "uniforms-bridge-json-schema": "^3.10.0-rc.1",
     "uniforms-mui": "^3.10.0-rc.1",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-beautiful-dnd": "^13.1.2"
+    "@types/react-beautiful-dnd": "^13.1.2",
+    "@types/uuid": "^8.3.4"
   }
 }

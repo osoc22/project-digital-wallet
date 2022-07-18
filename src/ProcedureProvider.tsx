@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export const categories = ["Economy", "Housing", "Employment", "Justice"] as const;
 
@@ -18,7 +19,7 @@ export interface Procedure {
 interface Context {
   procedure: Procedure | null;
   createProcedure: (procedure: Procedure) => void;
-  addComponent: (component: Component) => void;
+  addComponent: (component: Omit<Component, "id">) => void;
 }
 
 const ProcedureContext = createContext<Context>({} as Context);
@@ -31,9 +32,11 @@ export const ProcedureProvider = ({ children }: { children: ReactNode }) => {
     setProcedure({ ...procedure, components: [] });
   }, []);
 
-  const addComponent = useCallback((component: Component) => {
+  const addComponent = useCallback((component: Omit<Component, "id">) => {
+    const newComponent: Component = { ...component, id: uuidv4() };
+
     setProcedure((oldProcedure) =>
-      oldProcedure ? { ...oldProcedure, components: [...oldProcedure.components, component] } : null
+      oldProcedure ? { ...oldProcedure, components: [...oldProcedure.components, newComponent] } : null
     );
   }, []);
 
