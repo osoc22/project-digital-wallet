@@ -7,6 +7,7 @@ import { LinearProgress, Stack } from "@mui/material";
 import { Procedure } from "../ProcedureProvider";
 
 export default function Preview() {
+  // TODO: replace with context procedure
   const [procedure] = useState<Procedure>({
     name: "Bike Theft Report",
     category: "Justice",
