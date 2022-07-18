@@ -54,6 +54,7 @@ export default function ComponentPreview({ component, part, back, next }: Props)
         onSubmit={next}
         ref={(ref) => (formRef = ref)}
         modelTransform={transform}
+        validate="onSubmit"
       >
         <h3>
           Part {part}: {component.name}
