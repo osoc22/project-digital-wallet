@@ -1,7 +1,5 @@
-import ComboBox from './ComboBox';
-import Container from '@mui/material/Container';
+import BuilderHelperFieldTypes from './BuilderHelperFieldTypes';
 import Box from '@mui/material/Box';
-import ControlledRadioButtonsGroup from './RadioButton';
 import SwitchLabels from './SwitchLabels';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -9,21 +7,15 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function BuilderHelper() {
   return (
-    <Container  sx={{marginTop:'195px', backgroundColor: '#d3d3d3'}}>
       <Box sx={{display: 'flex', flexDirection: 'column', py: 2 }}>
-        <ComboBox />
-        <ComboBox />
-        <div>
-          <ControlledRadioButtonsGroup />
-        </div>
+        <h2>Field Details</h2>
+        <h5>Field types</h5>
+        <BuilderHelperFieldTypes />
         <div className='builder-helper-footer'>
           <SwitchLabels />
-          <div className='builder-helper-footer-items'>
-            <span><ContentCopyIcon /></span>
-            <span><DeleteOutlineIcon /></span>
-          </div>
+          <SwitchLabels />
+          <SwitchLabels />
         </div>
       </Box>
-    </Container>
   )
 }

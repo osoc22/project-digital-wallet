@@ -7,12 +7,13 @@ export default function BasicTextFields() {
     <Box
       component="form"
       sx={{
-        '& > :not(style)': {width: '100%', display:'flex', flexDirection:'column' },
+        '& > :not(style)': { pl:1.8, mx:'auto', width: '95%'},
       }}
       noValidate
       autoComplete="off"
     >
-      <TextField id="standard-basic" label="Short text input" variant="standard" />
+      <p style={{marginBottom:-1}}>E-mail address</p>
+      <TextField id="outlined-basic" label="" variant="outlined" size='small' />
     </Box>
   );
 }
