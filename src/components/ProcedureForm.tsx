@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { DeepPartial } from "uniforms";
 import { AutoFields, AutoForm, ErrorsField, SubmitField } from "uniforms-mui";
 import { createBridge } from "../bridge";
-import { categories, Procedure } from "../ProcedureProvider";
+import { categories, Procedure, useProcedures } from "../ProcedureProvider";
 
 const schema: JSONSchemaType<Omit<Procedure, "components">> = {
   title: "Procedure",
@@ -22,18 +22,22 @@ const schema: JSONSchemaType<Omit<Procedure, "components">> = {
 };
 
 export default function ProcedureForm() {
+  const { createProcedure } = useProcedures();
   const navigate = useNavigate();
 
   const submit = useCallback(
-    (data: DeepPartial<Procedure>) => {
-      console.log(data);
+    (procedure: Procedure) => {
+      createProcedure(procedure);
       navigate("design");
     },
-    [navigate]
+    [navigate, createProcedure]
   );
 
   return (
-    <AutoForm schema={createBridge(schema)} onSubmit={submit}>
+    <AutoForm
+      schema={createBridge(schema)}
+      onSubmit={(data: DeepPartial<Procedure>) => submit(data as Procedure)}
+    >
       <Typography variant="h4" component="h1" mb={2}>
         Create a new procedure
       </Typography>
