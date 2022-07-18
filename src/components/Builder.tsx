@@ -61,7 +61,7 @@ export default function ProcedureDesign() {
                   {items.map((item, index) => (
                     <Draggable key={item.id} draggableId={item.id} index={index}>
                       {(provided) => (
-                        <Box sx={{ width: '100%', border: 2, marginBottom: '30px', borderRadius: 1 }} 
+                        <Box sx={{ width: '100%', border: 2, marginBottom: '30px', borderRadius: 1 }} onClick={(data) => {console.log(data)}} 
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
