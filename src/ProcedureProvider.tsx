@@ -17,7 +17,7 @@ export interface Procedure {
 
 interface Context {
   procedure: Procedure | null;
-  createProcedure: (data: Procedure) => void;
+  createProcedure: (procedure: Procedure) => void;
   addComponent: (component: Component) => void;
 }
 
@@ -27,8 +27,8 @@ export const useProcedures = () => useContext(ProcedureContext);
 export const ProcedureProvider = ({ children }: { children: ReactNode }) => {
   const [procedure, setProcedure] = useState<Procedure | null>(null);
 
-  const createProcedure = useCallback((data: Procedure) => {
-    setProcedure({ ...data, components: [] });
+  const createProcedure = useCallback((procedure: Procedure) => {
+    setProcedure({ ...procedure, components: [] });
   }, []);
 
   const addComponent = useCallback((component: Component) => {
