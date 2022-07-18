@@ -4,7 +4,7 @@ import ComponentPreview from "./ComponentPreview";
 import { contactDetails, theftInfo, bikeInfo } from "../components";
 import { useCallback, useMemo, useState } from "react";
 import { LinearProgress, Stack } from "@mui/material";
-import { Procedure } from "../ProcedureProvider";
+import { Procedure } from "../contexts/ProcedureProvider";
 
 export default function Preview() {
   // TODO: replace with context procedure

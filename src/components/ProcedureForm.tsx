@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { DeepPartial } from "uniforms";
 import { AutoFields, AutoForm, ErrorsField, SubmitField } from "uniforms-mui";
 import { createBridge } from "../bridge";
-import { categories, Procedure, useProcedures } from "../ProcedureProvider";
+import { categories, Procedure, useProcedures } from "../contexts/ProcedureProvider";
 
 const schema: JSONSchemaType<Omit<Procedure, "components">> = {
   title: "Procedure",
