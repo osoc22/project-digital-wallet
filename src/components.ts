@@ -1,6 +1,7 @@
-import { Component } from "./ProcedureProvider";
+import { Component } from "./contexts/ProcedureProvider";
 
-export const contactDetails: Omit<Component, "id"> = {
+export const contactDetails: Component = {
+  id: "57ddc425-7d98-4ac2-b4d1-8c8c2410ed9a",
   name: "Contact details",
   properties: {
     email: { type: "string" },
@@ -10,7 +11,8 @@ export const contactDetails: Omit<Component, "id"> = {
   required: ["email", "repeatEmail", "phone"],
 };
 
-export const theftInfo: Omit<Component, "id"> = {
+export const theftInfo: Component = {
+  id: "d0f0b40b-9c58-42c8-89f6-da3f26f6e398",
   name: "Theft info",
   properties: {
     theftDate: {
@@ -24,7 +26,8 @@ export const theftInfo: Omit<Component, "id"> = {
   required: ["theftDate", "theftLocation"],
 };
 
-export const bikeInfo: Omit<Component, "id"> = {
+export const bikeInfo: Component = {
+  id: "a4cdc80f-411c-4710-9efe-a78f5b94fc8a",
   name: "Bike info",
   properties: {
     bikeBrand: {
