@@ -44,16 +44,16 @@ export default function ProcedureForm() {
   return (
     <AutoForm schema={createBridge(schema)} onSubmit={submit}>
       <Stack flexDirection="column" width="600px">
-      <Typography variant="h4" component="h1" fontWeight={900} mb={2}>
+        <Typography variant="h4" component="h1" fontWeight={900} mb={2}>
           Create a new procedure
         </Typography>
-      <Stack spacing={2} flexDirection="column">
-        <AutoField name="name"/>
-        <AutoField name="category"/>
-        <LongTextField name="description" rows={8}/>
-        <ErrorsField />
-        <SubmitField label="Create" sx={{ alignSelf: "flex-end" }} />
-      </Stack>
+        <Stack spacing={2} flexDirection="column">
+          <AutoField name="name" />
+          <AutoField name="category" />
+          <LongTextField name="description" rows={8} />
+          <ErrorsField />
+          <SubmitField label="Create" sx={{ alignSelf: "flex-end" }} />
+        </Stack>
       </Stack>
     </AutoForm>
   );
