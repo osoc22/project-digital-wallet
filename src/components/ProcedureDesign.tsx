@@ -10,42 +10,71 @@ export default function ProcedureDesign() {
     { id: "3", content: "Step 3" },
   ]);
 
-  const [questions, setQuestions] = useState([
-    { id: "1", content: "Question 1" },
-    { id: "2", content: "Question 2" },
-    { id: "3", content: "Question 3" },
+  const [items2, setItems2] = useState([
+    { id: "4", content: "Step 4" },
+    { id: "5", content: "Step 5" },
+    { id: "6", content: "Step 6" },
   ]);
 
-  const reorder = (list: any, startIndex: any, endIndex: any) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-  
-    return result;
+  const LIBRARY_DROPPABLE = 'gallery_droppable'
+  const CANVAS_DROPPABLE = 'canvas_droppable'
+
+  const reorder = (list1: any[], list2: any[], startIndex: number, startDroppableId: string, endIndex: number, endDroppableId: string) => {
+    // make copies of both lists
+    const result1 = Array.from(list1);
+    const result2 = Array.from(list2);
+
+    let sourceList: any[];
+    if (startDroppableId === LIBRARY_DROPPABLE) {
+      sourceList = result1;
+    } else {
+      sourceList = result2;
+    }
+
+    let destinationList: any[];
+    if (endDroppableId === LIBRARY_DROPPABLE) {
+      destinationList = result1;
+    } else {
+      destinationList = result2;
+    }
+
+    // const [removed] = sourceList.splice(startIndex, 1);
+    const removed = sourceList[startIndex];
+    destinationList.splice(endIndex, 0, removed);
+
+    return {
+      library: result1,
+      canvas: result2
+    };
+
   };
 
   return (
-    <Grid container spacing={3} height="100vh" width="100vw" m={0}>
-      <Grid item xs>
-        <span>Steps</span>
-        <DragDropContext onDragEnd={(result) => {
-          const { destination, source, draggableId } = result;
+    <DragDropContext onDragEnd={(result) => {
+      const { destination, source, draggableId } = result;
 
-          // item is being dragged to where it came from, do nothing
-          if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
-            return;
-          }
-      
-          const orderedItems = reorder(
-            items,
-            result.source.index,
-            result.destination?.index ?? 0
-          );
-      
-          // @ts-ignore
-          setItems(orderedItems);
-        }}>
-          <Droppable droppableId="droppable">
+      // item is being dragged to where it came from, do nothing
+      if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
+        return;
+      }
+
+      const orderedItems = reorder(
+        items,
+        items2,
+        result.source.index,
+        result.source.droppableId,
+        result.destination?.index ?? 0,
+        result.destination?.droppableId ?? LIBRARY_DROPPABLE
+      );
+
+      setItems(orderedItems.library);
+      setItems2(orderedItems.canvas);
+    }}>
+      <Grid container spacing={3} height="100vh" width="100vw" m={0}>
+        <Grid item xs>
+          <span>Steps</span>
+
+          <Droppable droppableId={LIBRARY_DROPPABLE}>
             {(provided) => (
               <div ref={provided.innerRef}>
                 {items.map((item, index) => (
@@ -71,32 +100,15 @@ export default function ProcedureDesign() {
               </div>
             )}
           </Droppable>
-        </DragDropContext>
-      </Grid>
-      <Divider orientation="vertical" />
-      <Grid item xs={6}>
-        <span>Design</span>
-        <DragDropContext onDragEnd={(result) => {
-          const { destination, source, draggableId } = result;
 
-          // item is being dragged to where it came from, do nothing
-          if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
-            return;
-          }
-      
-          const orderedQuestions = reorder(
-            questions,
-            result.source.index,
-            result.destination?.index ?? 0
-          );
-      
-          // @ts-ignore
-          setQuestions(orderedQuestions);
-        }}>
-          <Droppable droppableId="questionList">
+        </Grid>
+        <Divider orientation="vertical" />
+        <Grid item xs={6}>
+          <span>Design</span>
+          <Droppable droppableId={CANVAS_DROPPABLE}>
             {(provided) => (
               <div ref={provided.innerRef}>
-                {questions.map((item, index) => (
+                {items2.map((item, index) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided) => (
                       <Box
@@ -110,7 +122,7 @@ export default function ProcedureDesign() {
                         p={2}
                         m={2}
                       >
-                        {item.content}
+                        Ola! {item.content}
                       </Box>
                     )}
                   </Draggable>
@@ -119,12 +131,12 @@ export default function ProcedureDesign() {
               </div>
             )}
           </Droppable>
-        </DragDropContext>
+        </Grid>
+        <Divider orientation="vertical" />
+        <Grid item xs>
+          <span>Configure</span>
+        </Grid>
       </Grid>
-      <Divider orientation="vertical" />
-      <Grid item xs>
-        <span>Configure</span>
-      </Grid>
-    </Grid>
+    </DragDropContext>
   );
 }
