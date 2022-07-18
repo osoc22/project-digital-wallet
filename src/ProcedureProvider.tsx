@@ -18,6 +18,7 @@ export interface Procedure {
 interface Context {
   procedure: Procedure | null;
   createProcedure: (data: Procedure) => void;
+  addComponent: (component: Component) => void;
 }
 
 const ProcedureContext = createContext<Context>({} as Context);
@@ -27,16 +28,23 @@ export const ProcedureProvider = ({ children }: { children: ReactNode }) => {
   const [procedure, setProcedure] = useState<Procedure | null>(null);
 
   const createProcedure = useCallback((data: Procedure) => {
-    setProcedure(data);
+    setProcedure({ ...data, components: [] });
   }, []);
 
-  const context: Context = useMemo(() => ({
-    procedure, createProcedure
-  }), [procedure, createProcedure]);
+  const addComponent = useCallback((component: Component) => {
+    setProcedure((oldProcedure) =>
+      oldProcedure ? { ...oldProcedure, components: [...oldProcedure.components, component] } : null
+    );
+  }, []);
 
-  return (
-    <ProcedureContext.Provider value={context}>
-      {children}
-    </ProcedureContext.Provider>
+  const context: Context = useMemo(
+    () => ({
+      procedure,
+      createProcedure,
+      addComponent,
+    }),
+    [procedure, createProcedure, addComponent]
   );
-}
+
+  return <ProcedureContext.Provider value={context}>{children}</ProcedureContext.Provider>;
+};
