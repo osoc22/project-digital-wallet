@@ -1,6 +1,6 @@
 import { Component } from "./ProcedureProvider";
 
-export const contactDetails: Component = {
+export const contactDetails: Omit<Component, "id"> = {
   name: "Contact details",
   properties: {
     email: { type: "string" },
@@ -10,7 +10,7 @@ export const contactDetails: Component = {
   required: ["email", "repeatEmail", "phone"],
 };
 
-export const theftInfo: Component = {
+export const theftInfo: Omit<Component, "id"> = {
   name: "Theft info",
   properties: {
     theftDate: {
@@ -24,7 +24,7 @@ export const theftInfo: Component = {
   required: ["theftDate", "theftLocation"],
 };
 
-export const bikeInfo: Component = {
+export const bikeInfo: Omit<Component, "id"> = {
   name: "Bike info",
   properties: {
     bikeBrand: {
