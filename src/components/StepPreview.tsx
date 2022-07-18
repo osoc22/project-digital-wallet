@@ -54,6 +54,7 @@ export default function StepPreview({ step, part, back, next }: Props) {
         onSubmit={next}
         ref={(ref) => (formRef = ref)}
         modelTransform={transform}
+        validate="onSubmit"
       >
         <h3>
           Part {part}: {step.name}
