@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 export const categories = ["Economy", "Housing", "Employment", "Justice"] as const;
 
 export interface Component {
+  id: string;
   name: string;
   properties: object;
   required?: string[];
