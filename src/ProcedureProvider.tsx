@@ -21,6 +21,7 @@ interface Context {
   procedure: Procedure | null;
   createProcedure: (procedure: Procedure) => void;
   addComponent: (component: Omit<Component, "id">) => void;
+  deleteComponentById: (id: string) => void;
 }
 
 const ProcedureContext = createContext<Context>({} as Context);
@@ -41,13 +42,20 @@ export const ProcedureProvider = ({ children }: { children: ReactNode }) => {
     );
   }, []);
 
+  const deleteComponentById = useCallback((id: string) => {
+    setProcedure((oldProcedure) =>
+      oldProcedure ? { ...oldProcedure, components: oldProcedure.components.filter((c) => c.id !== id) } : null
+    );
+  }, []);
+
   const context: Context = useMemo(
     () => ({
       procedure,
       createProcedure,
       addComponent,
+      deleteComponentById,
     }),
-    [procedure, createProcedure, addComponent]
+    [procedure, createProcedure, addComponent, deleteComponentById]
   );
 
   return <ProcedureContext.Provider value={context}>{children}</ProcedureContext.Provider>;
