@@ -12,8 +12,7 @@ export default function BasicTextFields() {
       noValidate
       autoComplete="off"
     >
-      <TextField id="standard-basic" label="Standard" variant="standard" />
-      <TextField id="filled-basic" label="Filled" variant="filled" />
+      <TextField id="standard-basic" label="Short text input" variant="standard" />
     </Box>
   );
 }

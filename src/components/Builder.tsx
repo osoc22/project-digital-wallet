@@ -5,15 +5,13 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import BuilderHelper from './BuilderHelper';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import FieldsLibrary from './FieldsLibrary';
 
 export default function ProcedureDesign() {
   return (
     <div className="builder-container">
       <div className="builder-sidebar">
-        <span className="builder-item"><LocalLibraryOutlinedIcon /></span>
-        <span className="builder-item"><SettingsOutlinedIcon /></span>
+        <FieldsLibrary />
       </div>
       <div className="builder-main">
         <div className='builder-title-section'>
