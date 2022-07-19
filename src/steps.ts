@@ -1,6 +1,6 @@
 export interface Step {
   name: string;
-  properties: object;
+  properties: { [key: string]: any };
   required?: string[];
 }
 
