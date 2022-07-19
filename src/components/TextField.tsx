@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { InputLabel } from '@mui/material';
 
-export default function BasicTextFields() {
+export default function BasicTextFields({label: contentLabel}: {label?: string}) {
   return (
     <Box
       component="form"
@@ -13,7 +13,7 @@ export default function BasicTextFields() {
       noValidate
       autoComplete="off"
     >
-      <TextField id="standard-basic" label="Standard" variant="standard" />
+      <TextField id="standard-basic" label={contentLabel ?? "Standard"} variant="standard" />
       <InputLabel />
       {/* <TextField id="filled-basic" label="Filled" variant="filled" /> */}
     </Box>
