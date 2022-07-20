@@ -1,7 +1,18 @@
-import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export const categories = ["Economy", "Housing", "Employment", "Justice"] as const;
+export const categories = [
+  "Economy",
+  "Housing",
+  "Employment",
+  "Justice",
+] as const;
 
 export interface Component {
   id: string;
@@ -19,7 +30,7 @@ export interface Procedure {
 
 interface Context {
   procedure: Procedure | null;
-  createProcedure: (procedure: Procedure) => void;
+  resetProcedure: (procedure: Procedure) => void;
   addComponent: (component: Omit<Component, "id">) => void;
   deleteComponentById: (id: string) => void;
 }
@@ -30,33 +41,44 @@ export const useProcedures = () => useContext(ProcedureContext);
 export const ProcedureProvider = ({ children }: { children: ReactNode }) => {
   const [procedure, setProcedure] = useState<Procedure | null>(null);
 
-  const createProcedure = useCallback((procedure: Procedure) => {
-    setProcedure({ ...procedure, components: [] });
+  const resetProcedure = useCallback((procedure: Procedure) => {
+    setProcedure(procedure);
   }, []);
 
   const addComponent = useCallback((component: Omit<Component, "id">) => {
     const newComponent: Component = { ...component, id: uuidv4() };
 
     setProcedure((oldProcedure) =>
-      oldProcedure ? { ...oldProcedure, components: [...oldProcedure.components, newComponent] } : null
+      oldProcedure
+        ? {
+            ...oldProcedure,
+            components: [...oldProcedure.components, newComponent],
+          }
+        : null
     );
   }, []);
 
   const deleteComponentById = useCallback((id: string) => {
     setProcedure((oldProcedure) =>
-      oldProcedure ? { ...oldProcedure, components: oldProcedure.components.filter((c) => c.id !== id) } : null
+      oldProcedure
+        ? {
+            ...oldProcedure,
+            components: oldProcedure.components.filter((c) => c.id !== id),
+          }
+        : null
     );
   }, []);
 
-  const context: Context = useMemo(
-    () => ({
-      procedure,
-      createProcedure,
-      addComponent,
-      deleteComponentById,
-    }),
-    [procedure, createProcedure, addComponent, deleteComponentById]
+  return (
+    <ProcedureContext.Provider
+      value={{
+        procedure,
+        resetProcedure,
+        addComponent,
+        deleteComponentById,
+      }}
+    >
+      {children}
+    </ProcedureContext.Provider>
   );
-
-  return <ProcedureContext.Provider value={context}>{children}</ProcedureContext.Provider>;
 };

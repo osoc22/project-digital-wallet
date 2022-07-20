@@ -3,9 +3,19 @@ import { JSONSchemaType } from "ajv";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { DeepPartial } from "uniforms";
-import { AutoField, AutoForm, ErrorsField, LongTextField, SubmitField } from "uniforms-mui";
+import {
+  AutoField,
+  AutoForm,
+  ErrorsField,
+  LongTextField,
+  SubmitField,
+} from "uniforms-mui";
 import { createBridge } from "../bridge";
-import { categories, Procedure, useProcedures } from "../contexts/ProcedureProvider";
+import {
+  categories,
+  Procedure,
+  useProcedures,
+} from "../contexts/ProcedureProvider";
 
 const schema: JSONSchemaType<Omit<Procedure, "components">> = {
   title: "Procedure",
@@ -22,19 +32,22 @@ const schema: JSONSchemaType<Omit<Procedure, "components">> = {
 };
 
 export default function ProcedureForm() {
-  const { createProcedure } = useProcedures();
+  const { resetProcedure } = useProcedures();
   const navigate = useNavigate();
 
   const submit = useCallback(
     (procedure: Procedure) => {
-      createProcedure(procedure);
+      resetProcedure({ ...procedure, components: [] });
       navigate("design");
     },
-    [navigate, createProcedure]
+    [navigate, resetProcedure]
   );
 
   return (
-    <AutoForm schema={createBridge(schema)} onSubmit={(data: DeepPartial<Procedure>) => submit(data as Procedure)}>
+    <AutoForm
+      schema={createBridge(schema)}
+      onSubmit={(data: DeepPartial<Procedure>) => submit(data as Procedure)}
+    >
       <Stack flexDirection="column" width="600px">
         <Typography variant="h4" component="h1" fontWeight={900} mb={2}>
           Create a new procedure
