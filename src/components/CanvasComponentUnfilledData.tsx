@@ -7,9 +7,24 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Modal } from '@mui/material';
 
 export default function ComponentUnfilledData() {
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
   return (
     <Box sx={{marginRight:'50px', width:'350px', minHeight:'265px', backgroundColor:'#f5f5f5', border:'1px solid gray'}}>
@@ -22,7 +37,19 @@ export default function ComponentUnfilledData() {
             <EditIcon />
           </IconButton>
           <IconButton>
-            <DeleteOutlineIcon />
+            <DeleteOutlineIcon onClick={() => {setOpen(!open)}} />
+            <Modal
+              open={open}
+              onClose={() => setOpen(!open)}
+            >
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Are you sure you want to delete the component &lt;component-name&gt;?
+                </Typography>
+                <Button variant="outlined" onClick={() => {setOpen(!open)}}>Cancel</Button>
+                <Button variant="contained" onClick={() => {setOpen(!open)}}>Delete</Button>
+              </Box>
+            </Modal>
           </IconButton>
         </Box>
       </Box>
