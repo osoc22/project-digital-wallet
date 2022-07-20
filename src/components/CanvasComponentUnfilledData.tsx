@@ -6,8 +6,11 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useNavigate } from 'react-router-dom';
 
 export default function ComponentUnfilledData() {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{marginRight:'50px', width:'350px', minHeight:'265px', backgroundColor:'#f5f5f5', border:'1px solid gray'}}>
       <Box sx={{display: 'flex', justifyContent: 'space-between', border:'1px solid gray'}}>
@@ -24,7 +27,7 @@ export default function ComponentUnfilledData() {
         </Box>
       </Box>
       <Box sx={{display:'flex', alignItems: 'center', height:'200px', marginLeft:'50px'}}>
-        <Button variant='contained'>+ Add Fields</Button>
+        <Button variant='contained' onClick={() => {navigate('/builder')}}>+ Add Fields</Button>
       </Box>
     </Box>
   )}
