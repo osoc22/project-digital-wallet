@@ -14,7 +14,6 @@ export default function BuilderHelperFieldTypes({
   updateFieldType: (type: string) => void;
   type: string;
 }) {
-  console.log(type);
   const handleInputChange = useCallback(
     (event: SelectChangeEvent<string>) => {
       updateFieldType(event.target.value);

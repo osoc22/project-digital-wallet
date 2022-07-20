@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import { JSONSchemaType } from "ajv";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -44,22 +44,24 @@ export default function ProcedureForm() {
   );
 
   return (
-    <AutoForm
-      schema={createBridge(schema)}
-      onSubmit={(data: DeepPartial<Procedure>) => submit(data as Procedure)}
-    >
-      <Stack flexDirection="column" width="600px">
-        <Typography variant="h4" component="h1" fontWeight={900} mb={2}>
-          Create a new procedure
-        </Typography>
-        <Stack spacing={2} flexDirection="column">
-          <AutoField name="name" />
-          <AutoField name="category" />
-          <LongTextField name="description" rows={8} />
-          <ErrorsField />
-          <SubmitField label="Create" sx={{ alignSelf: "flex-end" }} />
+    <Container maxWidth="sm">
+      <AutoForm
+        schema={createBridge(schema)}
+        onSubmit={(data: DeepPartial<Procedure>) => submit(data as Procedure)}
+      >
+        <Stack flexDirection="column" width="600px">
+          <Typography variant="h4" component="h1" fontWeight={900} mb={2}>
+            Create a new procedure
+          </Typography>
+          <Stack spacing={2} flexDirection="column">
+            <AutoField name="name" />
+            <AutoField name="category" />
+            <LongTextField name="description" rows={8} />
+            <ErrorsField />
+            <SubmitField label="Create" sx={{ alignSelf: "flex-end" }} />
+          </Stack>
         </Stack>
-      </Stack>
-    </AutoForm>
+      </AutoForm>
+    </Container>
   );
 }
