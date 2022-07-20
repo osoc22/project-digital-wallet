@@ -20,8 +20,6 @@ body {
 .builder-sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-bottom: 450px;
   padding: 10px;
 }
 
@@ -32,8 +30,8 @@ body {
 }
 
 .builder-main {
-  border-right: 2px solid grey;
-  border-left: 2px solid grey;
+  border-right: 2px solid #c3cfd9;
+  border-left: 2px solid #c3cfd9;
 }
 
 .builder-title-section {
@@ -55,9 +53,8 @@ body {
 }
 
 .builder-helper-footer-items {
-  align-self: center;
+  display: flex;
 }
 
-.builder-helper-footer-items span {
-  margin-right: 15px;
+.builder-helper-footer-items Button {
 }

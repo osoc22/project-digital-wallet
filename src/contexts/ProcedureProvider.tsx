@@ -17,7 +17,7 @@ export const categories = [
 export interface Component {
   id: string;
   name: string;
-  properties: object;
+  properties: { [key: string]: any };
   required?: string[];
 }
 
