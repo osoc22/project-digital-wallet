@@ -15,7 +15,10 @@ export default function SimpleAccordion({
 }) {
   return (
     <div>
-      <Accordion defaultExpanded={true}>
+      <Accordion
+        defaultExpanded={true}
+        sx={{ boxShadow: "none", backgroundColor: "#f7f9fa" }}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -36,18 +39,18 @@ export default function SimpleAccordion({
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  sx={{ p: 2, m: 1, border: 0.5 }}
+                  sx={{ p: 2, m: 1, border: 2, borderColor: "#c3cfd9" }}
                 >
                   <TextField label={item.content} />
                 </Box>
               )}
             </Draggable>
           ))}
-          <Box sx={{ p: 2, m: 1, border: 0.5 }}>
+          <Box sx={{ p: 2, m: 1, border: 2, borderColor: "#c3cfd9" }}>
             <span>Multiple choice question</span>
             <CheckboxLabel />
           </Box>
-          <Box sx={{ p: 2, m: 1, border: 0.5 }}>
+          <Box sx={{ p: 2, m: 1, border: 2, borderColor: "#c3cfd9" }}>
             <span>Select list</span>
             <FieldTypeSelect />
           </Box>

@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import InputBox from "./InputBox";
 import Droppable from "./Droppable";
 import { Draggable } from "react-beautiful-dnd";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import { IconButton, Stack } from "@mui/material";
 
 export default function BuilderMainContainer({
   droppableId,
@@ -28,15 +30,39 @@ export default function BuilderMainContainer({
           {canvasQuestions.map((item, index) => (
             <Draggable key={index} draggableId={item.id + index} index={index}>
               {(provided) => (
-                <Box
-                  sx={{ width: "100%", border: 1, marginBottom: "30px", py: 2 }}
+                <Stack
+                  direction="row"
                   onClick={() => setSelectedField(item.name)}
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
+                  sx={{ marginBottom: "30px" }}
                 >
-                  <InputBox label={item.content} />
-                </Box>
+                  <IconButton
+                    sx={{
+                      width: "auto",
+                      height: "auto",
+                      ml: "auto",
+                      ":hover": {
+                        cursor: "grab",
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                    disabled
+                  >
+                    <DragIndicatorIcon htmlColor="#4b5c6b" fontSize="large" />
+                  </IconButton>
+
+                  <Box
+                    sx={{
+                      width: "100%",
+                      border: 2,
+                      borderColor: "#c3cfd9",
+                    }}
+                  >
+                    <InputBox label={item.content} />
+                  </Box>
+                </Stack>
               )}
             </Draggable>
           ))}

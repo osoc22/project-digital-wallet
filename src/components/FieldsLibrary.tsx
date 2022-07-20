@@ -1,8 +1,8 @@
-import SearchInput from "./SearchInput";
 import FieldTypes from "./FieldTypes";
 import FieldTemplates from "./FieldTemplates";
 import Box from "@mui/material/Box";
 import Droppable from "./Droppable";
+import TextField from "./TextField";
 
 export default function FieldsLibrary({
   droppableId,
@@ -16,7 +16,9 @@ export default function FieldsLibrary({
       <section>
         <Box sx={{ p: 0.5, m: 0.5 }}>
           <h2>Field Library</h2>
-          <SearchInput />
+          <Box p={3}>
+            <TextField label="Search" />
+          </Box>
         </Box>
       </section>
       <section>

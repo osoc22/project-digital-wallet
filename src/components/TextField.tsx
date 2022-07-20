@@ -23,7 +23,7 @@ export default function BasicTextFields({
       <TextField
         id="standard-basic"
         label={contentLabel ?? "Standard"}
-        variant="standard"
+        variant="outlined"
       />
       <InputLabel />
     </Box>

@@ -21,6 +21,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 10px;
+  background-color: #f7f9fa;
 }
 
 .builder-item {
@@ -32,6 +33,7 @@ body {
 .builder-main {
   border-right: 2px solid #c3cfd9;
   border-left: 2px solid #c3cfd9;
+  background-color: white;
 }
 
 .builder-title-section {
@@ -44,6 +46,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.builder-helper {
+  background-color: #f7f9fa;
 }
 
 .builder-helper-footer {
