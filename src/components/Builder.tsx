@@ -1,5 +1,3 @@
-// import {Book} from '@mui/icons-material/book';
-// import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
 import TextField from "./TextField";
 import Container from "@mui/material/Container";
 import { Box, Divider, Grid } from "@mui/material";
@@ -15,7 +13,7 @@ export default function ProcedureDesign() {
   });
   const [selectedField, setSelectedField] = useState<string>();
 
-  const [libraryQuestions, setLibraryQuestions] = useState([
+  const [libraryQuestions] = useState([
     { id: "shortText", name: "phone", type: "string", content: "Short Text" },
     { id: "template", name: "province", type: "string", content: "Template" },
   ]);
