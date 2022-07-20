@@ -15,11 +15,12 @@ const Navbar = ({
 }) => {
   return (
     <AppBar
-      position="static"
+      position="sticky"
       sx={{
         backgroundColor: "#f7f9fa",
         borderBottom: 2,
         borderColor: "#cdd7df",
+        boxShadow: "none",
       }}
     >
       <Stack direction="row" justifyContent="space-between" p={2}>
