@@ -4,7 +4,7 @@ import FieldTypes from './FieldTypes';
 import FieldTemplates from './FieldTemplates';
 import Box from '@mui/material/Box';
 
-export default function ProcedureDesign() {
+export default function  ProcedureDesign() {
   return (
     <div>
       <section>

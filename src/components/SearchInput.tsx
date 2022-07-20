@@ -58,10 +58,10 @@ export default function FreeSoloCreateOption() {
         return option.title;
       }}
       renderOption={(props, option) => <li {...props}>{option.title}</li>}
-      sx={{ width: 300 }}
+      sx={{ width: 380 }}
       freeSolo
       renderInput={(params) => (
-        <TextField {...params} label="Search fields" />
+        <TextField {...params} label="Search components" />
         )}
         />
   );
