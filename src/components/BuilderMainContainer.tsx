@@ -10,10 +10,12 @@ export default function BuilderMainContainer({
   droppableId,
   canvasQuestions,
   setSelectedField,
+  deleteField,
 }: {
   droppableId: string;
   canvasQuestions: any[];
   setSelectedField: (fieldName: string) => void;
+  deleteField: (fieldName: string) => void;
 }) {
   return (
     <Droppable droppableId={droppableId}>
@@ -60,7 +62,11 @@ export default function BuilderMainContainer({
                       borderColor: "#c3cfd9",
                     }}
                   >
-                    <InputBox label={item.content} />
+                    <InputBox
+                      label={item.content}
+                      deleteField={deleteField}
+                      fieldName={item.name}
+                    />
                   </Box>
                 </Stack>
               )}

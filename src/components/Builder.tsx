@@ -33,26 +33,46 @@ export default function Builder() {
 
   const addField = useCallback(
     (fieldName: string, fieldType: string) => {
-      const { name, properties, required } = component;
+      const { properties = {}, ...rest } = component;
 
       setComponent({
-        name,
-        properties: { ...(properties ?? {}), [fieldName]: { type: fieldType } },
-        required,
+        ...rest,
+        properties: { ...properties, [fieldName]: { type: fieldType } },
       });
     },
     [component]
   );
 
+  const deleteField = useCallback(
+    (fieldName: string) => {
+      const { properties = {}, ...rest } = component;
+      const newProperties = Object.keys(properties).reduce(
+        (object: { [key: string]: any }, key: string) => {
+          if (key !== fieldName) {
+            object[key] = properties[key];
+          }
+          return object;
+        },
+        {}
+      );
+
+      setComponent({
+        ...rest,
+        properties: newProperties,
+      });
+      setCanvasQuestions(canvasQuestions.filter((c) => c.name !== fieldName));
+    },
+    [component, canvasQuestions]
+  );
+
   const updateFieldType = useCallback(
     (type: string) => {
       if (!selectedField) return;
-      const { name, properties, required } = component;
+      const { properties = {}, ...rest } = component;
 
       setComponent({
-        name,
-        properties: { ...(properties ?? {}), [selectedField]: { type } },
-        required,
+        ...rest,
+        properties: { ...properties, [selectedField]: { type } },
       });
     },
     [component, selectedField]
@@ -171,6 +191,7 @@ export default function Builder() {
               droppableId={CANVAS_DROPPABLE}
               canvasQuestions={canvasQuestions}
               setSelectedField={setSelectedField}
+              deleteField={deleteField}
             />
             <Button variant="contained" color="primary" size="large">
               + Create new field
