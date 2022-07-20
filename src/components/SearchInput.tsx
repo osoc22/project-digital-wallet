@@ -1,7 +1,6 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import SearchIcon from '@mui/icons-material/Search';
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 
 const filter = createFilterOptions<ItemOptionType>();
 
@@ -12,7 +11,7 @@ export default function FreeSoloCreateOption() {
     <Autocomplete
       value={value}
       onChange={(event, newValue) => {
-        if (typeof newValue === 'string') {
+        if (typeof newValue === "string") {
           setValue({
             title: newValue,
           });
@@ -30,8 +29,10 @@ export default function FreeSoloCreateOption() {
 
         const { inputValue } = params;
         // Suggest the creation of a new value
-        const isExisting = options.some((option) => inputValue === option.title);
-        if (inputValue !== '' && !isExisting) {
+        const isExisting = options.some(
+          (option) => inputValue === option.title
+        );
+        if (inputValue !== "" && !isExisting) {
           filtered.push({
             inputValue,
             title: `Add "${inputValue}"`,
@@ -47,7 +48,7 @@ export default function FreeSoloCreateOption() {
       options={searchableItems}
       getOptionLabel={(option) => {
         // Value selected with enter, right from the input
-        if (typeof option === 'string') {
+        if (typeof option === "string") {
           return option;
         }
         // Add "xxx" option created dynamically
@@ -60,10 +61,8 @@ export default function FreeSoloCreateOption() {
       renderOption={(props, option) => <li {...props}>{option.title}</li>}
       sx={{ width: 300 }}
       freeSolo
-      renderInput={(params) => (
-        <TextField {...params} label="Search fields" />
-        )}
-        />
+      renderInput={(params) => <TextField {...params} label="Search fields" />}
+    />
   );
 }
 

@@ -1,8 +1,6 @@
-import TextField from "./TextField";
 import Container from "@mui/material/Container";
 import { Box, Button } from "@mui/material";
-import { DragDropContext, Draggable } from "react-beautiful-dnd";
-import Droppable from "./Droppable";
+import { DragDropContext } from "react-beautiful-dnd";
 import { useCallback, useState } from "react";
 import { Component } from "../contexts/ProcedureProvider";
 import FieldType from "./FieldType";
@@ -10,19 +8,24 @@ import SwitchLabels from "./SwitchLabels";
 import FieldsLibrary from "./FieldsLibrary";
 import BuilderMainContainer from "./BuilderMainContainer";
 
-export default function ProcedureDesign() {
+export default function Builder() {
   const [component, setComponent] = useState<Partial<Component>>({
-    properties: { email: { type: "string" } },
+    properties: { email: { type: "email" } },
   });
   const [selectedField, setSelectedField] = useState<string>();
 
   const [libraryQuestions] = useState([
-    { id: "shortText", name: "phone", type: "string", content: "Short Text" },
-    { id: "template", name: "province", type: "string", content: "Template" },
+    { id: "name", name: "name", type: "string", content: "Name" },
+    {
+      id: "textInput",
+      name: "phone",
+      type: "integer",
+      content: "Phone Number",
+    },
   ]);
 
   const [canvasQuestions, setCanvasQuestions] = useState([
-    { id: "1", name: "email", type: "string", content: "First field" },
+    { id: "email", name: "email", type: "email", content: "Email" },
   ]);
 
   const LIBRARY_DROPPABLE = "gallery_droppable";
@@ -157,74 +160,22 @@ export default function ProcedureDesign() {
         }}
       >
         <div className="builder-sidebar">
-          <FieldsLibrary />
-          <Droppable droppableId={LIBRARY_DROPPABLE}>
-            {(provided) => (
-              <div ref={provided.innerRef}>
-                {libraryQuestions.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided) => (
-                      <Box
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        sx={{
-                          borderRadius: 1,
-                          border: 2,
-                        }}
-                        p={2}
-                        m={2}
-                      >
-                        <TextField label={item.content} />
-                      </Box>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          <FieldsLibrary
+            droppableId={LIBRARY_DROPPABLE}
+            libraryQuestions={libraryQuestions}
+          />
         </div>
         <div className="builder-main">
           <div className="builder-component-section">
-            <BuilderMainContainer />
-          </div>
-          <Droppable droppableId={CANVAS_DROPPABLE}>
-            {(provided) => (
-              <div ref={provided.innerRef}>
-                {canvasQuestions.map((item, index) => (
-                  <Draggable
-                    key={index}
-                    draggableId={item.id + index}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <Box
-                        onClick={() => setSelectedField(item.name)}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        sx={{
-                          borderRadius: 1,
-                          border: 2,
-                        }}
-                        p={2}
-                        m={2}
-                      >
-                        <TextField label={item.content} />
-                      </Box>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <BuilderMainContainer
+              droppableId={CANVAS_DROPPABLE}
+              canvasQuestions={canvasQuestions}
+              setSelectedField={setSelectedField}
+            />
             <Button variant="contained" color="primary" size="large">
               + Create new field
             </Button>
-          </Box>
+          </div>
         </div>
       </DragDropContext>
       <div className="builder-helper">

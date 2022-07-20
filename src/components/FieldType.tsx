@@ -7,13 +7,14 @@ import {
 } from "@mui/material";
 import { useCallback } from "react";
 
-export default function FieldSelect({
+export default function BuilderHelperFieldTypes({
   updateFieldType,
   type,
 }: {
   updateFieldType: (type: string) => void;
   type: string;
 }) {
+  console.log(type);
   const handleInputChange = useCallback(
     (event: SelectChangeEvent<string>) => {
       updateFieldType(event.target.value);
@@ -23,8 +24,7 @@ export default function FieldSelect({
 
   return (
     <FormControl fullWidth>
-      <InputLabel>Fieldtype</InputLabel>
-      <Select value={type} label="Fieldtype" onChange={handleInputChange}>
+      <Select value={type} label="" onChange={handleInputChange}>
         {dataOptions.map((o, i) => (
           <MenuItem key={i} value={o.value}>
             {o.name}
@@ -38,8 +38,5 @@ export default function FieldSelect({
 const dataOptions = [
   { name: "Email", value: "email" },
   { name: "Phone number", value: "integer" },
-  { name: "Name", value: "string" },
-  { name: "Last name", value: "string" },
-  { name: "Address", value: "string" },
-  { name: "Short text input", value: "string" },
+  { name: "Text input", value: "string" },
 ];
