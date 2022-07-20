@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { InputLabel } from "@mui/material";
 
 export default function BasicSelect() {
   const [province, setProvince] = React.useState("10");
@@ -14,8 +15,8 @@ export default function BasicSelect() {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <span>Choose the Belgian province</span>
-        <Select value={province} label="" onChange={handleChange}>
+        <InputLabel>Province</InputLabel>
+        <Select value={province} label="Province" onChange={handleChange}>
           <MenuItem value={10}>Antwerpen</MenuItem>
           <MenuItem value={20}>Limburg</MenuItem>
           <MenuItem value={30}>Vlaams Brabant</MenuItem>

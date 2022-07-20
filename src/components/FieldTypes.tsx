@@ -51,7 +51,6 @@ export default function SimpleAccordion({
             <CheckboxLabel />
           </Box>
           <Box sx={{ p: 2, m: 1, border: 2, borderColor: "#c3cfd9" }}>
-            <span>Select list</span>
             <FieldTypeSelect />
           </Box>
         </AccordionDetails>
