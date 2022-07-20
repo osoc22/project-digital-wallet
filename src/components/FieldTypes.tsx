@@ -24,7 +24,7 @@ export default function SimpleAccordion({
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <h3>Fieldtypes</h3>
+          <h3>Field types</h3>
         </AccordionSummary>
         <AccordionDetails>
           {libraryQuestions.map((item, index) => (

@@ -3,6 +3,7 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
+  InputLabel,
 } from "@mui/material";
 import { useCallback } from "react";
 
@@ -23,7 +24,8 @@ export default function BuilderHelperFieldTypes({
 
   return (
     <FormControl fullWidth>
-      <Select value={type} label="" onChange={handleInputChange}>
+      <InputLabel>Type</InputLabel>
+      <Select value={type} label="Type" onChange={handleInputChange}>
         {dataOptions.map((o, i) => (
           <MenuItem key={i} value={o.value}>
             {o.name}
@@ -36,6 +38,6 @@ export default function BuilderHelperFieldTypes({
 
 const dataOptions = [
   { name: "Email", value: "email" },
-  { name: "Number input", value: "integer" },
-  { name: "Text input", value: "string" },
+  { name: "Number", value: "integer" },
+  { name: "Text", value: "string" },
 ];

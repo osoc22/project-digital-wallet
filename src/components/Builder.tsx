@@ -205,7 +205,6 @@ export default function Builder() {
             <h2>Field Details</h2>
             {selectedField && component.properties?.[selectedField] && (
               <>
-                <h3>Fieldtype</h3>
                 <FieldType
                   updateFieldType={updateFieldType}
                   type={component.properties[selectedField].type}
