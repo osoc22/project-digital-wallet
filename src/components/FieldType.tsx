@@ -1,6 +1,5 @@
 import {
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   SelectChangeEvent,
@@ -37,6 +36,6 @@ export default function BuilderHelperFieldTypes({
 
 const dataOptions = [
   { name: "Email", value: "email" },
-  { name: "Phone number", value: "integer" },
+  { name: "Number input", value: "integer" },
   { name: "Text input", value: "string" },
 ];

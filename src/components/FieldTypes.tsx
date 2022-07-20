@@ -25,7 +25,12 @@ export default function SimpleAccordion({
         </AccordionSummary>
         <AccordionDetails>
           {libraryQuestions.map((item, index) => (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
+            <Draggable
+              key={item.id}
+              draggableId={item.id}
+              index={index}
+              disableInteractiveElementBlocking={true}
+            >
               {(provided) => (
                 <Box
                   ref={provided.innerRef}
@@ -43,6 +48,7 @@ export default function SimpleAccordion({
             <CheckboxLabel />
           </Box>
           <Box sx={{ p: 2, m: 1, border: 0.5 }}>
+            <span>Select list</span>
             <FieldTypeSelect />
           </Box>
         </AccordionDetails>

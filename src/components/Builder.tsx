@@ -17,7 +17,7 @@ export default function Builder() {
   const [libraryQuestions] = useState([
     { id: "name", name: "name", type: "string", content: "Name" },
     {
-      id: "textInput",
+      id: "phone",
       name: "phone",
       type: "integer",
       content: "Phone Number",

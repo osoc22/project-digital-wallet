@@ -21,7 +21,7 @@ export default function FieldsLibrary({
       </section>
       <section>
         <Box sx={{ p: 0.5, m: 0.5 }}>
-          <Droppable droppableId={droppableId}>
+          <Droppable droppableId={droppableId} isDropDisabled={true}>
             {(provided) => (
               <div ref={provided.innerRef}>
                 <FieldTypes libraryQuestions={libraryQuestions} />
