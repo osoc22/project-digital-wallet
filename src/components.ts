@@ -1,10 +1,7 @@
-export interface Step {
-  name: string;
-  properties: { [key: string]: any };
-  required?: string[];
-}
+import { Component } from "./contexts/ProcedureProvider";
 
-export const contactDetails: Step = {
+const contactDetails: Component = {
+  id: "57ddc425-7d98-4ac2-b4d1-8c8c2410ed9a",
   name: "Contact details",
   properties: {
     email: { type: "string" },
@@ -14,7 +11,8 @@ export const contactDetails: Step = {
   required: ["email", "repeatEmail", "phone"],
 };
 
-export const theftInfo: Step = {
+const theftInfo: Component = {
+  id: "d0f0b40b-9c58-42c8-89f6-da3f26f6e398",
   name: "Theft info",
   properties: {
     theftDate: {
@@ -28,7 +26,8 @@ export const theftInfo: Step = {
   required: ["theftDate", "theftLocation"],
 };
 
-export const bikeInfo: Step = {
+const bikeInfo: Component = {
+  id: "a4cdc80f-411c-4710-9efe-a78f5b94fc8a",
   name: "Bike info",
   properties: {
     bikeBrand: {
@@ -37,3 +36,5 @@ export const bikeInfo: Step = {
   },
   required: ["bikeBrand"],
 };
+
+export const templates = [contactDetails, theftInfo, bikeInfo];

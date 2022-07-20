@@ -1,14 +1,17 @@
 import TextField from "./TextField";
 import Container from "@mui/material/Container";
-import { Box, Divider, Grid } from "@mui/material";
-import BuilderHelper from "./BuilderHelper";
+import { Box, Button } from "@mui/material";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import Droppable from "./Droppable";
 import { useCallback, useState } from "react";
-import { Step } from "../steps";
+import { Component } from "../contexts/ProcedureProvider";
+import FieldType from "./FieldType";
+import SwitchLabels from "./SwitchLabels";
+import FieldsLibrary from "./FieldsLibrary";
+import BuilderMainContainer from "./BuilderMainContainer";
 
 export default function ProcedureDesign() {
-  const [component, setComponent] = useState<Partial<Step>>({
+  const [component, setComponent] = useState<Partial<Component>>({
     properties: { email: { type: "string" } },
   });
   const [selectedField, setSelectedField] = useState<string>();
@@ -110,52 +113,51 @@ export default function ProcedureDesign() {
   };
 
   return (
-    <DragDropContext
-      onDragEnd={(result) => {
-        const { destination, source } = result;
+    <div className="builder-container">
+      <DragDropContext
+        onDragEnd={(result) => {
+          const { destination, source } = result;
 
-        // check if destination exists, i.e. a valid Droppable
-        if (
-          !destination ||
-          // If destination and source droppable AND index of Draggable are the same, do nothing
-          (destination.droppableId === source.droppableId &&
-            destination.index === source.index) ||
-          // Questions can and may not be dragged from the canvas to the library
-          destination.droppableId === LIBRARY_DROPPABLE
-        ) {
-          return;
-        } else if (
-          destination.droppableId === source.droppableId &&
-          destination.index !== source.index
-        ) {
-          const reorderedFields = reorderSameDroppable(
-            canvasQuestions,
-            result.source.index,
-            result.destination?.index ?? 0
-          );
-          setCanvasQuestions(reorderedFields as any[]);
-        } else {
-          const orderedItems = reorderAccross(
-            libraryQuestions,
-            canvasQuestions,
-            result.source.index,
-            result.source.droppableId,
-            result.destination?.index ?? 0,
-            result.destination?.droppableId ?? LIBRARY_DROPPABLE
-          );
+          // check if destination exists, i.e. a valid Droppable
+          if (
+            !destination ||
+            // If destination and source droppable AND index of Draggable are the same, do nothing
+            (destination.droppableId === source.droppableId &&
+              destination.index === source.index) ||
+            // Questions can and may not be dragged from the canvas to the library
+            destination.droppableId === LIBRARY_DROPPABLE
+          ) {
+            return;
+          } else if (
+            destination.droppableId === source.droppableId &&
+            destination.index !== source.index
+          ) {
+            const reorderedFields = reorderSameDroppable(
+              canvasQuestions,
+              result.source.index,
+              result.destination?.index ?? 0
+            );
+            setCanvasQuestions(reorderedFields as any[]);
+          } else {
+            const orderedItems = reorderAccross(
+              libraryQuestions,
+              canvasQuestions,
+              result.source.index,
+              result.source.droppableId,
+              result.destination?.index ?? 0,
+              result.destination?.droppableId ?? LIBRARY_DROPPABLE
+            );
 
-          // setLibraryQuestions(orderedItems.library);
-          setCanvasQuestions(orderedItems.canvas);
+            // setLibraryQuestions(orderedItems.library);
+            setCanvasQuestions(orderedItems.canvas);
 
-          const field = orderedItems.library[result.source.index];
-          addField(field.name, field.type);
-        }
-      }}
-    >
-      <Grid container spacing={3} height="100vh" width="100vw" m={0}>
-        <Grid item xs>
-          <span>Steps</span>
-
+            const field = orderedItems.library[result.source.index];
+            addField(field.name, field.type);
+          }
+        }}
+      >
+        <div className="builder-sidebar">
+          <FieldsLibrary />
           <Droppable droppableId={LIBRARY_DROPPABLE}>
             {(provided) => (
               <div ref={provided.innerRef}>
@@ -182,10 +184,11 @@ export default function ProcedureDesign() {
               </div>
             )}
           </Droppable>
-        </Grid>
-        <Divider orientation="vertical" />
-        <Grid item xs={6}>
-          <span>Design</span>
+        </div>
+        <div className="builder-main">
+          <div className="builder-component-section">
+            <BuilderMainContainer />
+          </div>
           <Droppable droppableId={CANVAS_DROPPABLE}>
             {(provided) => (
               <div ref={provided.innerRef}>
@@ -217,26 +220,37 @@ export default function ProcedureDesign() {
               </div>
             )}
           </Droppable>
-        </Grid>
-        <Divider orientation="vertical" />
-        <Grid item xs>
-          <span>Configure</span>
-          <Container>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Button variant="contained" color="primary" size="large">
+              + Create new field
+            </Button>
+          </Box>
+        </div>
+      </DragDropContext>
+      <div className="builder-helper">
+        <Container>
+          <Box sx={{ display: "flex", flexDirection: "column", py: 2 }}>
+            <h2>Field Details</h2>
             {selectedField && component.properties?.[selectedField] && (
-              <Box>
-                <BuilderHelper
+              <>
+                <h3>Fieldtype</h3>
+                <FieldType
                   updateFieldType={updateFieldType}
                   type={component.properties[selectedField].type}
-                  toggleRequired={toggleRequired}
-                  required={
-                    component.required?.includes(selectedField) ?? false
-                  }
                 />
-              </Box>
+                <div className="builder-helper-footer">
+                  <SwitchLabels
+                    required={
+                      component.required?.includes(selectedField) ?? false
+                    }
+                    toggleRequired={toggleRequired}
+                  />
+                </div>
+              </>
             )}
-          </Container>
-        </Grid>
-      </Grid>
-    </DragDropContext>
+          </Box>
+        </Container>
+      </div>
+    </div>
   );
 }

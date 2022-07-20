@@ -1,27 +1,26 @@
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import StepPreview from "./StepPreview";
-import { contactDetails, theftInfo, bikeInfo } from "../steps";
+import ComponentPreview from "./ComponentPreview";
 import { useCallback, useMemo, useState } from "react";
 import { LinearProgress, Stack } from "@mui/material";
-import { Procedure } from "./ProcedureForm";
+import { Procedure } from "../contexts/ProcedureProvider";
+import { useTemplates } from "../contexts/TemplateProvider";
 
 export default function Preview() {
+  const { componentTemplates } = useTemplates();
+  // TODO: replace with context procedure
   const [procedure] = useState<Procedure>({
     name: "Bike Theft Report",
     category: "Justice",
     description: "Report a bike theft",
-    steps: [contactDetails, theftInfo, bikeInfo],
+    components: componentTemplates,
   });
   const [response, setResponse] = useState({});
   const [page, setPage] = useState(0);
   const currentPage = useMemo(() => page + 1, [page]);
-  const maxPage = useMemo(() => procedure.steps.length, [procedure]);
-  const step = useMemo(() => procedure.steps[page], [procedure, page]);
-  const progress = useMemo(
-    () => (currentPage / maxPage) * 100,
-    [currentPage, maxPage]
-  );
+  const maxPage = useMemo(() => procedure.components.length, [procedure]);
+  const component = useMemo(() => procedure.components[page], [procedure, page]);
+  const progress = useMemo(() => (currentPage / maxPage) * 100, [currentPage, maxPage]);
 
   const back = useCallback(() => {
     setPage(Math.max(0, page - 1));
@@ -75,12 +74,7 @@ export default function Preview() {
               <LinearProgress variant="determinate" value={progress} />
             </Box>
             <h2>{procedure.name}</h2>
-            <StepPreview
-              step={step}
-              part={currentPage}
-              next={next}
-              back={back}
-            />
+            <ComponentPreview component={component} part={currentPage} next={next} back={back} />
             <Box textAlign="center" justifySelf="end">
               Part {currentPage} of {maxPage}
             </Box>

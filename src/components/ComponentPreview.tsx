@@ -2,14 +2,14 @@ import { Button, Stack } from "@mui/material";
 import { useCallback, useMemo } from "react";
 import { AutoFields, AutoForm, ErrorsField } from "uniforms-mui";
 import { createBridge } from "../bridge";
-import { Step } from "../steps";
+import { Component } from "../contexts/ProcedureProvider";
 
 type Indexable = {
   [key: string]: any;
 };
 
 interface Props {
-  step: Step;
+  component: Component;
   part: number;
   back: () => void;
   next: (data: object) => void;
@@ -19,11 +19,11 @@ interface FormRef {
   submit: () => void;
 }
 
-export default function StepPreview({ step, part, back, next }: Props) {
+export default function ComponentPreview({ component, part, back, next }: Props) {
   let formRef: FormRef | null = null;
 
   const jsonSchema = useMemo(() => {
-    const { name, properties, required } = step;
+    const { name, properties, required } = component;
 
     return {
       type: "object",
@@ -31,7 +31,7 @@ export default function StepPreview({ step, part, back, next }: Props) {
       properties,
       required,
     };
-  }, [step]);
+  }, [component]);
 
   const transform = useCallback(
     (mode: "form" | "validate" | "submit", model: Indexable) => {
@@ -54,9 +54,10 @@ export default function StepPreview({ step, part, back, next }: Props) {
         onSubmit={next}
         ref={(ref) => (formRef = ref)}
         modelTransform={transform}
+        validate="onSubmit"
       >
         <h3>
-          Part {part}: {step.name}
+          Part {part}: {component.name}
         </h3>
         <AutoFields />
         <ErrorsField />
