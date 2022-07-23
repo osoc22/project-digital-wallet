@@ -19,7 +19,7 @@ export default function NestedList() {
 
   return (
     <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+      sx={{ width: "100%", bgcolor: "background.paper" }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
@@ -28,8 +28,8 @@ export default function NestedList() {
         </ListSubheader>
       }
     >
-      <ListItemButton onClick={handleClick}>
-        <ListItemText primary="Contact Details" />
+      <ListItemButton onClick={handleClick} >
+        <ListItemText primary="Contact Details"  />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>

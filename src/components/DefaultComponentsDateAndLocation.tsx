@@ -29,7 +29,7 @@ export default function NestedList() {
       }
     >
       <ListItemButton onClick={handleClick}>
-        <ListItemText primary="Contact Details" />
+        <ListItemText primary="Date and Location" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
