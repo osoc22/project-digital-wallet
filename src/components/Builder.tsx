@@ -33,6 +33,13 @@ export default function Builder() {
       format: "email", 
       content: "Email"
     },
+    {
+      id: "datetime", 
+      name: "datetime", 
+      type: "string", 
+      format: "datetime", 
+      content: "DateTime"
+    },
   ]);
 
   const [canvasQuestions, setCanvasQuestions] = useState([
@@ -43,12 +50,14 @@ export default function Builder() {
   const CANVAS_DROPPABLE = "canvas_droppable";
 
   const addField = useCallback(
-    (fieldName: string, fieldType: string) => {
+    (fieldName: string, fieldType: string, format?: string) => {
       const { properties = {}, ...rest } = component;
+      const field = { type: fieldType, format };
+      if (!format) delete field.format;
 
       setComponent({
         ...rest,
-        properties: { ...properties, [fieldName]: { type: fieldType } },
+        properties: { ...properties, [fieldName]: field },
       });
     },
     [component]
@@ -77,13 +86,13 @@ export default function Builder() {
   );
 
   const updateFieldType = useCallback(
-    (type: string) => {
+    (type: object) => {
       if (!selectedField) return;
       const { properties = {}, ...rest } = component;
 
       setComponent({
         ...rest,
-        properties: { ...properties, [selectedField]: { type } },
+        properties: { ...properties, [selectedField]: type },
       });
     },
     [component, selectedField]
@@ -198,7 +207,7 @@ export default function Builder() {
               setCanvasQuestions(orderedItems.canvas);
 
               const field = orderedItems.library[result.source.index];
-              addField(field.name, field.type);
+              addField(field.name, field.type, field.format);
             }
           }}
         >

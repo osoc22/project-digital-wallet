@@ -11,12 +11,13 @@ export default function BuilderHelperFieldTypes({
   updateFieldType,
   field
 }: {
-  updateFieldType: (type: string) => void;
+  updateFieldType: (type: object) => void;
   field: {format: string; type: string};
 }) {
   const handleInputChange = useCallback(
     (event: SelectChangeEvent<string>) => {
-      updateFieldType(event.target.value);
+      const type = valueMap[event.target.value] ?? { type: event.target.value };
+      updateFieldType(type);
     },
     [updateFieldType]
   );
@@ -35,8 +36,14 @@ export default function BuilderHelperFieldTypes({
   );
 }
 
+const valueMap: { [key: string]: any } = {
+  email: { type: "string", format: "email"},
+  datetime: { type: "string", format: "datetime"}
+};
+
 const dataOptions = [
   { name: "Email", value: "email" },
+  { name: "DateTime", value: "datetime"},
   { name: "Number", value: "integer" },
   { name: "Text", value: "string" },
 ];
