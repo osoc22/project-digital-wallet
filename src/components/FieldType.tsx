@@ -1,18 +1,12 @@
-import {
-  FormControl,
-  Select,
-  MenuItem,
-  SelectChangeEvent,
-  InputLabel,
-} from "@mui/material";
+import { FormControl, Select, MenuItem, SelectChangeEvent, InputLabel } from "@mui/material";
 import { useCallback } from "react";
 
 export default function BuilderHelperFieldTypes({
   updateFieldType,
-  field
+  field,
 }: {
   updateFieldType: (type: object) => void;
-  field: {format: string; type: string};
+  field: { format: string; type: string };
 }) {
   const handleInputChange = useCallback(
     (event: SelectChangeEvent<string>) => {
@@ -37,13 +31,13 @@ export default function BuilderHelperFieldTypes({
 }
 
 const valueMap: { [key: string]: any } = {
-  email: { type: "string", format: "email"},
-  datetime: { type: "string", format: "datetime"}
+  email: { type: "string", format: "email" },
+  datetime: { type: "string", format: "datetime" },
 };
 
 const dataOptions = [
   { name: "Email", value: "email" },
-  { name: "DateTime", value: "datetime"},
+  { name: "DateTime", value: "datetime" },
   { name: "Number", value: "integer" },
   { name: "Text", value: "string" },
 ];
