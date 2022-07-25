@@ -154,13 +154,17 @@ export default function Builder() {
       <Navbar
         page="Component Builder"
         title="Title"
-        saveAction={() => {
-          addComponent(component as Component);
-          navigate("/canvas");
-        }}
         actionElement={
           <Button variant="text" onClick={() => navigate("/canvas")}>
             Cancel
+          </Button>
+        }
+        saveButton={
+          <Button variant="contained" onClick={() => {
+            addComponent(component as Component);
+            navigate("/canvas");
+          }}>
+            Save Component
           </Button>
         }
       />

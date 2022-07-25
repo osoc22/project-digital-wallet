@@ -7,12 +7,12 @@ const Navbar = ({
   page,
   title,
   actionElement,
-  saveAction,
+  saveButton,
 }: {
   page: string;
   title: string;
   actionElement: JSX.Element;
-  saveAction: () => void;
+  saveButton: JSX.Element;
 }) => {
   return (
     <AppBar
@@ -38,9 +38,10 @@ const Navbar = ({
         >{title}</Typography>
         <Stack direction="row" spacing={2}>
           {actionElement}
-          <Button variant="contained" onClick={saveAction}>
+          {saveButton}
+          {/* <Button variant="contained" onClick={}>
             Save
-          </Button>
+          </Button> */}
         </Stack>
       </Stack>
     </AppBar>
