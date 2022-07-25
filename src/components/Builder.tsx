@@ -14,7 +14,7 @@ export default function Builder() {
   const navigate = useNavigate();
 
   const [component, setComponent] = useState<Partial<Component>>({
-    properties: { email: { type: "email" } },
+    properties: { email: { type: "string", format: "email" } },
   });
   const [selectedField, setSelectedField] = useState<string>();
 
@@ -26,10 +26,17 @@ export default function Builder() {
       type: "integer",
       content: "Phone Number",
     },
+    {
+      id: "email", 
+      name: "email", 
+      type: "string", 
+      format: "email", 
+      content: "Email"
+    },
   ]);
 
   const [canvasQuestions, setCanvasQuestions] = useState([
-    { id: "email", name: "email", type: "email", content: "Email" },
+    { id: "email", name: "email", type: "string", format: "email", content: "Email" },
   ]);
 
   const LIBRARY_DROPPABLE = "gallery_droppable";
@@ -221,9 +228,9 @@ export default function Builder() {
               <h2>Field Details</h2>
               {selectedField && component.properties?.[selectedField] && (
                 <>
-                  <FieldType
+                  <FieldType 
                     updateFieldType={updateFieldType}
-                    type={component.properties[selectedField].type}
+                    field={component.properties[selectedField]}
                   />
                   <div className="builder-helper-footer">
                     <SwitchLabels

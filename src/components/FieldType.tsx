@@ -9,10 +9,10 @@ import { useCallback } from "react";
 
 export default function BuilderHelperFieldTypes({
   updateFieldType,
-  type,
+  field
 }: {
   updateFieldType: (type: string) => void;
-  type: string;
+  field: {format: string; type: string};
 }) {
   const handleInputChange = useCallback(
     (event: SelectChangeEvent<string>) => {
@@ -24,7 +24,7 @@ export default function BuilderHelperFieldTypes({
   return (
     <FormControl fullWidth>
       <InputLabel>Type</InputLabel>
-      <Select value={type} label="Type" onChange={handleInputChange}>
+      <Select value={field.format ?? field.type} label="Type" onChange={handleInputChange}>
         {dataOptions.map((o, i) => (
           <MenuItem key={i} value={o.value}>
             {o.name}
