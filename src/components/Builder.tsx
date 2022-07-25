@@ -153,15 +153,17 @@ export default function Builder() {
     <Stack>
       <Navbar
         page="Component Builder"
+        title="Title"
         saveAction={() => {
           addComponent(component as Component);
           navigate("/canvas");
         }}
-      >
-        <Button variant="text" onClick={() => navigate("/canvas")}>
-          Cancel
-        </Button>
-      </Navbar>
+        actionElement={
+          <Button variant="text" onClick={() => navigate("/canvas")}>
+            Cancel
+          </Button>
+        }
+      />
       <div className="builder-container">
         <DragDropContext
           onDragEnd={(result) => {
