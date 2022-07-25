@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -73,114 +73,118 @@ export default function ProcedureDesign() {
               justifyContent: "center",
             }}
           >
-            <List
-              sx={{ width: "100%", maxWidth: 360 }}
-              component="nav"
-              aria-labelledby="nested-list-subheader"
-            >
-              <ListItemButton onClick={handleClickDefault}>
-                <ListItemText primary="Default Components" />
-                {openDefault ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-              <Collapse in={openDefault} timeout="auto" unmountOnExit>
-            <Box sx={{ my: 2 }}>
+            <Box>
+              <List
+                sx={{ width: "100%" }}
+                component="nav"
+                aria-labelledby="nested-list-subheader"
+              >
+                <ListItemButton onClick={handleClickDefault}>
+                  <ListItemText primary="Default Components" />
+                  {openDefault ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={openDefault} timeout="auto" unmountOnExit>
+                  <Box sx={{ my: 2 }}>
+                    <CanvasDefaultComponents
+                      title={"Contact Details"}
+                      fields={[
+                        {
+                          icon: <MailOutlineIcon />,
+                          name: "E-mail address",
+                          description: "short text",
+                        },
+                        {
+                          icon: <MailOutlineIcon />,
+                          name: "Repeat e-mail address",
+                          description: "short text",
+                        },
+                        {
+                          icon: <PhoneIcon />,
+                          name: "Phone number",
+                          description: "short text",
+                        },
+                      ]}
+                    />
+                  </Box>
+
                   <CanvasDefaultComponents
-                    title={"Contact Details"}
+                    title={"Date and location"}
                     fields={[
                       {
-                        icon: <MailOutlineIcon />,
-                        name: "E-mail address",
-                        description: "short text",
+                        icon: <CalendarMonthIcon />,
+                        name: "Date",
+                        description: "date, time",
                       },
                       {
-                        icon: <MailOutlineIcon />,
-                        name: "Repeat e-mail address",
-                        description: "short text",
+                        icon: <LocationOnIcon />,
+                        name: "Location",
+                        description: "Address",
+                      },
+                    ]}
+                  />
+                </Collapse>
+              </List>
+            </Box>
+            <Box>
+              <List
+                sx={{ width: "100%" }}
+                component="nav"
+                aria-labelledby="nested-list-subheader"
+              >
+                <ListItemButton onClick={handleClickCustom}>
+                  <ListItemText primary="Custom Components" />
+                  {openCustom ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={openCustom} timeout="auto" unmountOnExit>
+                  <CanvasDefaultComponents
+                    title={"Bike theft information"}
+                    fields={[
+                      {
+                        icon: <PedalBikeIcon />,
+                        name: "Bike last seen",
+                        description: "date, time",
                       },
                       {
-                        icon: <PhoneIcon />,
-                        name: "Phone number",
+                        icon: <ContactPageOutlinedIcon />,
+                        name: "Theft identified",
+                        description: "date, time",
+                      },
+                      {
+                        icon: <DescriptionOutlinedIcon />,
+                        name: "Description",
+                        description: "long paragraph",
+                      },
+                      {
+                        icon: <LocationOnIcon />,
+                        name: "Location",
+                        description: "location picker",
+                      },
+                    ]}
+                  />
+                  <CanvasDefaultComponents
+                    title={"Company details"}
+                    fields={[
+                      {
+                        icon: <BusinessOutlinedIcon />,
+                        name: "Basic information",
+                        description: "long paragraph",
+                      },
+                      {
+                        icon: <LocalAtmOutlinedIcon />,
+                        name: "Profit data",
+                        description: "number",
+                      },
+                      {
+                        icon: <ContactPageOutlinedIcon />,
+                        name: "Owner data",
                         description: "short text",
                       },
                     ]}
                   />
+                </Collapse>
+              </List>
             </Box>
-
-            <CanvasDefaultComponents
-              title={"Date and location"}
-              fields={[
-                {
-                  icon: <CalendarMonthIcon />,
-                  name: "Date",
-                  description: "date, time",
-                },
-                {
-                  icon: <LocationOnIcon />,
-                  name: "Location",
-                  description: "Address",
-                },
-              ]}
-              />
-              </Collapse>
-            </List>
           </Box>
-            <List
-              sx={{ width: "100%", maxWidth: 360 }}
-              component="nav"
-              aria-labelledby="nested-list-subheader"
-            >
-              <ListItemButton onClick={handleClickCustom}>
-                <ListItemText primary="Custom Components" />
-                {openCustom ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-              <Collapse in={openCustom} timeout="auto" unmountOnExit>
-            <CanvasDefaultComponents
-              title={"Bike theft information"}
-              fields={[
-                {
-                  icon: <PedalBikeIcon />,
-                  name: "Bike last seen",
-                  description: "date, time",
-                },
-                {
-                  icon: <ContactPageOutlinedIcon />,
-                  name: "Theft identified",
-                  description: "date, time",
-                },
-                {
-                  icon: <DescriptionOutlinedIcon />,
-                  name: "Description",
-                  description: "long paragraph",
-                },
-                {
-                  icon: <LocationOnIcon />,
-                  name: "Location",
-                  description: "location picker",
-                },
-              ]}
-            />
-            <CanvasDefaultComponents
-              title={"Company details"}
-              fields={[
-                {
-                  icon: <BusinessOutlinedIcon />,
-                  name: "Basic information",
-                  description: "long paragraph",
-                },
-                {
-                  icon: <LocalAtmOutlinedIcon />,
-                  name: "Profit data",
-                  description: "number",
-                },
-                {
-                  icon: <ContactPageOutlinedIcon />,
-                  name: "Owner data",
-                  description: "short text",
-                },
-              ]}
-            />
-          </Collapse>
-          </List>
         </Box>
       </Grid>
       <Grid item xs={9.5}>
