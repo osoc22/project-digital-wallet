@@ -6,7 +6,13 @@ import PrefilledCitizenData from './PrefilledCitizenData';
 import { useNavigate } from 'react-router-dom';
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 
-export default function ComponentPrefilledData() {
+export default function ComponentPrefilledData({
+  title,
+  fields,
+}: {
+  title: string;
+  fields: Array<{ icon: JSX.Element; name: string; description: string }>;
+}) {
   const navigate = useNavigate();
 
   return (
@@ -18,8 +24,8 @@ export default function ComponentPrefilledData() {
         marginRight: "50px",
       }}
     >
-      <Box sx={{display:'flex', justifyContent:'center'}}>
-        <DragHandleIcon  fontSize='large' />
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <DragHandleIcon fontSize="large" />
       </Box>
       <Box
         sx={{
@@ -34,7 +40,7 @@ export default function ComponentPrefilledData() {
             border: "1px solid gray",
           }}
         >
-          <h5 style={{ marginLeft: "15px" }}>Pre-filled citizen data</h5>
+          <h5 style={{ marginLeft: "15px" }}>{title}</h5>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <IconButton
               onClick={() => {
@@ -49,8 +55,9 @@ export default function ComponentPrefilledData() {
           </Box>
         </Box>
         <Box>
-          <PrefilledCitizenData />
+          <PrefilledCitizenData fields={fields}/>
         </Box>
       </Box>
     </Box>
-  );}
+  );
+}
