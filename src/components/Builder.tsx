@@ -24,7 +24,7 @@ export default function Builder() {
     {
       id: "phone",
       name: "phone",
-      type: "string",
+      type: "integer",
       content: "Phone Number",
     },
     {

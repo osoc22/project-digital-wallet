@@ -36,7 +36,7 @@ export default function ComponentPreview({ component, part, back, next }: Props)
   const transform = useCallback(
     (mode: "form" | "validate" | "submit", model: Indexable) => {
       Object.keys(model).forEach((k) => {
-        if (isNaN(Date.parse(model[k]))) return;
+        if (isNaN(Date.parse(model[k])) || new Date(Date.parse(model[k])).getFullYear() !== new Date().getFullYear()) return;
 
         if (mode === "form") model[k] = new Date(model[k]);
         else model[k] = model[k].toISOString();

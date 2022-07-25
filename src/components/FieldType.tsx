@@ -32,12 +32,12 @@ export default function BuilderHelperFieldTypes({
 
 const valueMap: { [key: string]: any } = {
   email: { type: "string", format: "email" },
-  datetime: { type: "string", format: "date-time" },
+  "date-time": { type: "string", format: "date-time" },
 };
 
 const dataOptions = [
   { name: "Email", value: "email" },
-  { name: "DateTime", value: "datetime" },
-  { name: "Number", value: "string" },
+  { name: "DateTime", value: "date-time" },
+  { name: "Number", value: "integer" },
   { name: "Text", value: "string" },
 ];
