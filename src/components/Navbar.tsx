@@ -2,15 +2,16 @@ import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { ReactNode } from "react";
 
 const Navbar = ({
   page,
-  children,
+  title,
+  actionElement,
   saveAction,
 }: {
   page: string;
-  children: ReactNode;
+  title: string;
+  actionElement: JSX.Element;
   saveAction: () => void;
 }) => {
   return (
@@ -32,8 +33,11 @@ const Navbar = ({
         >
           {page}
         </Typography>
+        <Typography
+          color="black"
+        >{title}</Typography>
         <Stack direction="row" spacing={2}>
-          {children}
+          {actionElement}
           <Button variant="contained" onClick={saveAction}>
             Save
           </Button>

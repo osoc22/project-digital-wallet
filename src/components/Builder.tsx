@@ -50,15 +50,12 @@ export default function Builder() {
   const deleteField = useCallback(
     (fieldName: string) => {
       const { properties = {}, ...rest } = component;
-      const newProperties = Object.keys(properties).reduce(
-        (object: { [key: string]: any }, key: string) => {
-          if (key !== fieldName) {
-            object[key] = properties[key];
-          }
-          return object;
-        },
-        {}
-      );
+      const newProperties = Object.keys(properties).reduce((object: { [key: string]: any }, key: string) => {
+        if (key !== fieldName) {
+          object[key] = properties[key];
+        }
+        return object;
+      }, {});
 
       setComponent({
         ...rest,
@@ -128,11 +125,7 @@ export default function Builder() {
     };
   };
 
-  const reorderSameDroppable = (
-    draggables: any[],
-    startIndex: number,
-    endIndex: number
-  ) => {
+  const reorderSameDroppable = (draggables: any[], startIndex: number, endIndex: number) => {
     const result = Array.from(draggables);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -143,15 +136,17 @@ export default function Builder() {
     <Stack>
       <Navbar
         page="Component Builder"
+        title="Title"
         saveAction={() => {
           console.log(component);
           navigate("/canvas");
         }}
-      >
-        <Button variant="text" onClick={() => navigate("/canvas")}>
-          Cancel
-        </Button>
-      </Navbar>
+        actionElement={
+          <Button variant="text" onClick={() => navigate("/canvas")}>
+            Cancel
+          </Button>
+        }
+      />
       <div className="builder-container">
         <DragDropContext
           onDragEnd={(result) => {
@@ -161,16 +156,12 @@ export default function Builder() {
             if (
               !destination ||
               // If destination and source droppable AND index of Draggable are the same, do nothing
-              (destination.droppableId === source.droppableId &&
-                destination.index === source.index) ||
+              (destination.droppableId === source.droppableId && destination.index === source.index) ||
               // Questions can and may not be dragged from the canvas to the library
               destination.droppableId === LIBRARY_DROPPABLE
             ) {
               return;
-            } else if (
-              destination.droppableId === source.droppableId &&
-              destination.index !== source.index
-            ) {
+            } else if (destination.droppableId === source.droppableId && destination.index !== source.index) {
               const reorderedFields = reorderSameDroppable(
                 canvasQuestions,
                 result.source.index,
@@ -196,10 +187,7 @@ export default function Builder() {
           }}
         >
           <div className="builder-sidebar">
-            <FieldsLibrary
-              droppableId={LIBRARY_DROPPABLE}
-              libraryQuestions={libraryQuestions}
-            />
+            <FieldsLibrary droppableId={LIBRARY_DROPPABLE} libraryQuestions={libraryQuestions} />
           </div>
           <div className="builder-main">
             <div className="builder-component-section">
@@ -221,15 +209,10 @@ export default function Builder() {
               <h2>Field Details</h2>
               {selectedField && component.properties?.[selectedField] && (
                 <>
-                  <FieldType
-                    updateFieldType={updateFieldType}
-                    type={component.properties[selectedField].type}
-                  />
+                  <FieldType updateFieldType={updateFieldType} type={component.properties[selectedField].type} />
                   <div className="builder-helper-footer">
                     <SwitchLabels
-                      required={
-                        component.required?.includes(selectedField) ?? false
-                      }
+                      required={component.required?.includes(selectedField) ?? false}
                       toggleRequired={toggleRequired}
                     />
                   </div>
