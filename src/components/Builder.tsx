@@ -24,7 +24,7 @@ export default function Builder() {
     {
       id: "phone",
       name: "phone",
-      type: "integer",
+      type: "string",
       content: "Phone Number",
     },
     {
@@ -38,7 +38,7 @@ export default function Builder() {
       id: "datetime",
       name: "datetime",
       type: "string",
-      format: "datetime",
+      format: "date-time",
       content: "DateTime",
     },
   ]);
