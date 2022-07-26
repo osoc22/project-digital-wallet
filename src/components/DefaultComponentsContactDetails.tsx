@@ -31,8 +31,8 @@ export default function NestedList({
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {fields.map((field, index) => (
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemIcon key={index}>
+            <ListItemButton key={index} sx={{ pl: 4 }}>
+              <ListItemIcon>
                 {field.icon}
               </ListItemIcon>
               <ListItemText primary={`${field.name} (${field.description})`} />

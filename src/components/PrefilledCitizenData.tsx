@@ -18,8 +18,8 @@ export default function NestedList({
     >
       <List component="div" disablePadding>
         {fields.map((field, index) => (
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon key={index}>{field.icon}</ListItemIcon>
+          <ListItemButton key={index} sx={{ pl: 4 }}>
+            <ListItemIcon>{field.icon}</ListItemIcon>
             <ListItemText primary={`${field.name} (${field.description})`} />
           </ListItemButton>
         ))}
