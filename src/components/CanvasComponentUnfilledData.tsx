@@ -6,19 +6,19 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Modal } from "@mui/material";
 
 export default function ComponentUnfilledData({
   id,
+  editComponent,
   deleteComponentById
 }: {
   id: string;
+  editComponent: (id: string) => void;
   deleteComponentById: (id: string) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
 
   const style = {
     position: "absolute" as "absolute",
@@ -61,7 +61,7 @@ export default function ComponentUnfilledData({
             />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <IconButton>
+            <IconButton onClick={() => editComponent(id)}>
               <EditIcon />
             </IconButton>
             <IconButton
@@ -104,12 +104,7 @@ export default function ComponentUnfilledData({
             marginLeft: "20px"
           }}
         >
-          <Button
-            variant="contained"
-            onClick={() => {
-              navigate("/builder");
-            }}
-          >
+          <Button variant="contained" onClick={() => editComponent(id)}>
             + Add Fields
           </Button>
         </Box>

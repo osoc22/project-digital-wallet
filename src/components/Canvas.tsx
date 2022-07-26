@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -9,7 +9,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
-import CanvasDefaultComponents from "./CanvasDefaultcomponents";
+import CanvasDefaultComponent from "./CanvasDefaultComponent";
 import CanvasComponentPreFilledData from "./CanvasComponentPreFilledData";
 import CanvasTabs from "./CanvasTabs";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -33,7 +33,7 @@ import Navbar from "./Navbar";
 
 export default function ProcedureDesign() {
   const navigate = useNavigate();
-  const { procedure, resetProcedure, addComponent, deleteComponentById } = useProcedures();
+  const { procedure, resetProcedure, addComponent, deleteComponentById, selectComponent } = useProcedures();
   const { componentTemplates } = useTemplates();
   const [openDefault, setOpenDefault] = React.useState(true);
 
@@ -54,6 +54,14 @@ export default function ProcedureDesign() {
     setOpenCustom(!openCustom);
   };
 
+  const editComponent = useCallback(
+    (id: string) => {
+      selectComponent(id);
+      navigate("/builder");
+    },
+    [navigate, selectComponent]
+  );
+
   const reorder = (list: any, startIndex: any, endIndex: any) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -72,13 +80,7 @@ export default function ProcedureDesign() {
             Preview
           </Button>
         }
-        saveButton={
-          <Button
-            variant="contained"
-          >
-            Save Procedure
-          </Button>
-        }
+        saveButton={<Button variant="contained">Save Procedure</Button>}
       />
       <Grid container>
         <DragDropContext
@@ -155,7 +157,7 @@ export default function ProcedureDesign() {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                     >
-                                      <CanvasDefaultComponents
+                                      <CanvasDefaultComponent
                                         title={item.name}
                                         fields={Object.keys(item.properties).map(p => ({
                                           icon: iconMap[item.properties[p].format ?? item.properties[p].type],
@@ -182,7 +184,7 @@ export default function ProcedureDesign() {
                       {openCustom ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Collapse in={openCustom} timeout="auto" unmountOnExit>
-                      <CanvasDefaultComponents
+                      <CanvasDefaultComponent
                         title={"Bike theft information"}
                         fields={[
                           {
@@ -207,7 +209,7 @@ export default function ProcedureDesign() {
                           }
                         ]}
                       />
-                      <CanvasDefaultComponents
+                      <CanvasDefaultComponent
                         title={"Company details"}
                         fields={[
                           {
@@ -258,6 +260,7 @@ export default function ProcedureDesign() {
                             {item.properties ? (
                               <CanvasComponentPreFilledData
                                 id={item.id}
+                                editComponent={editComponent}
                                 deleteComponentById={deleteComponentById}
                                 title={item.name}
                                 fields={Object.keys(item.properties).map(p => ({
@@ -267,7 +270,11 @@ export default function ProcedureDesign() {
                                 }))}
                               />
                             ) : (
-                              <CanvasComponentUnfilledData id={item.id} deleteComponentById={deleteComponentById} />
+                              <CanvasComponentUnfilledData
+                                id={item.id}
+                                editComponent={editComponent}
+                                deleteComponentById={deleteComponentById}
+                              />
                             )}
                           </Box>
                         )}
