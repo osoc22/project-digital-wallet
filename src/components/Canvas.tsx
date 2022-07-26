@@ -27,8 +27,10 @@ import BusinessOutlinedIcon from "@mui/icons-material/BusinessOutlined";
 import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import Droppable from "./Droppable";
+import { useTemplates } from "../contexts/TemplateProvider";
 
 export default function ProcedureDesign() {
+  const { componentTemplates } = useTemplates();
   const [openDefault, setOpenDefault] = React.useState(true);
 
   const [procedureComponents, setProcedureComponents] = useState([
@@ -79,29 +81,27 @@ export default function ProcedureDesign() {
 
   return (
     <Grid container>
-      <DragDropContext onDragEnd={(result) => {
-        const { destination, source, draggableId } = result;
+      <DragDropContext
+        onDragEnd={result => {
+          const { destination, source, draggableId } = result;
 
-        // item is being dragged to where it came from, do nothing
-        if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
-          return;
-        }
+          // item is being dragged to where it came from, do nothing
+          if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
+            return;
+          }
 
-        const orderedItems = reorder(
-          procedureComponents,
-          result.source.index,
-          result.destination?.index ?? 0
-        );
+          const orderedItems = reorder(procedureComponents, result.source.index, result.destination?.index ?? 0);
 
-        // @ts-ignore
-        setProcedureComponents(orderedItems);
-      }}>
+          // @ts-ignore
+          setProcedureComponents(orderedItems);
+        }}
+      >
         <Grid item xs={2.5}>
           <Box
             sx={{
               border: "0.5px solid #d3d3d3",
               height: "100%",
-              backgroundColor: "#f5f5f5",
+              backgroundColor: "#f5f5f5"
             }}
           >
             <Box>
@@ -110,7 +110,7 @@ export default function ProcedureDesign() {
                   marginBottom: 3,
                   mx: 0.5,
                   display: "flex",
-                  justifyContent: "space-between",
+                  justifyContent: "space-between"
                 }}
               >
                 <CanvasTabs />
@@ -125,70 +125,46 @@ export default function ProcedureDesign() {
                 px: 1,
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <Box>
-                <List
-                  sx={{ width: "100%" }}
-                  component="nav"
-                  aria-labelledby="nested-list-subheader"
-                >
+                <List sx={{ width: "100%" }} component="nav" aria-labelledby="nested-list-subheader">
                   <ListItemButton onClick={handleClickDefault}>
                     <ListItemText primary="Default Components" />
                     {openDefault ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
                   <Collapse in={openDefault} timeout="auto" unmountOnExit>
                     <Box sx={{ my: 2 }}>
-                      <Droppable droppableId="canvasDefaultComponents">
-                        //
+                      <Droppable droppableId="canvasDroppable" direction="horizontal">
+                        {provided => (
+                          <Box ref={provided.innerRef}>
+                            {componentTemplates.map((item, index) => (
+                              <Draggable key={item.id} draggableId={item.id} index={index}>
+                                {provided => (
+                                  <Box
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                  >
+                                    <CanvasDefaultComponents
+                                      title={item.name}
+                                      fields={[]}
+                                    />
+                                  </Box>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </Box>
+                        )}
                       </Droppable>
-                      <CanvasDefaultComponents
-                        title={"Contact Details"}
-                        fields={[
-                          {
-                            icon: <MailOutlineIcon />,
-                            name: "E-mail address",
-                            description: "short text",
-                          },
-                          {
-                            icon: <MailOutlineIcon />,
-                            name: "Repeat e-mail address",
-                            description: "short text",
-                          },
-                          {
-                            icon: <PhoneIcon />,
-                            name: "Phone number",
-                            description: "short text",
-                          },
-                        ]}
-                      />
                     </Box>
-
-                    <CanvasDefaultComponents
-                      title={"Date and location"}
-                      fields={[
-                        {
-                          icon: <CalendarMonthIcon />,
-                          name: "Date",
-                          description: "date, time",
-                        },
-                        {
-                          icon: <LocationOnIcon />,
-                          name: "Location",
-                          description: "Address",
-                        },
-                      ]}
-                    />
                   </Collapse>
                 </List>
               </Box>
               <Box>
-                <List
-                  sx={{ width: "100%" }}
-                  component="nav"
-                  aria-labelledby="nested-list-subheader"
-                >
+                <List sx={{ width: "100%" }} component="nav" aria-labelledby="nested-list-subheader">
                   <ListItemButton onClick={handleClickCustom}>
                     <ListItemText primary="Custom Components" />
                     {openCustom ? <ExpandLess /> : <ExpandMore />}
@@ -200,23 +176,23 @@ export default function ProcedureDesign() {
                         {
                           icon: <PedalBikeIcon />,
                           name: "Bike last seen",
-                          description: "date, time",
+                          description: "date, time"
                         },
                         {
                           icon: <ContactPageOutlinedIcon />,
                           name: "Theft identified",
-                          description: "date, time",
+                          description: "date, time"
                         },
                         {
                           icon: <DescriptionOutlinedIcon />,
                           name: "Description",
-                          description: "long paragraph",
+                          description: "long paragraph"
                         },
                         {
                           icon: <LocationOnIcon />,
                           name: "Location",
-                          description: "location picker",
-                        },
+                          description: "location picker"
+                        }
                       ]}
                     />
                     <CanvasDefaultComponents
@@ -225,18 +201,18 @@ export default function ProcedureDesign() {
                         {
                           icon: <BusinessOutlinedIcon />,
                           name: "Basic information",
-                          description: "long paragraph",
+                          description: "long paragraph"
                         },
                         {
                           icon: <LocalAtmOutlinedIcon />,
                           name: "Profit data",
-                          description: "number",
+                          description: "number"
                         },
                         {
                           icon: <ContactPageOutlinedIcon />,
                           name: "Owner data",
-                          description: "short text",
-                        },
+                          description: "short text"
+                        }
                       ]}
                     />
                   </Collapse>
@@ -247,7 +223,7 @@ export default function ProcedureDesign() {
         </Grid>
         <Grid item xs={9.5}>
           <Droppable droppableId="canvasDroppable" direction="horizontal">
-            {(provided) => (
+            {provided => (
               <Box
                 ref={provided.innerRef}
                 sx={{
@@ -256,19 +232,19 @@ export default function ProcedureDesign() {
                   flexWrap: "wrap",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "100vh",
+                  height: "100vh"
                 }}
               >
                 {procedureComponents.map((item, index) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided) => (
+                    {provided => (
                       <Box
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         sx={{
                           borderRadius: 1,
-                          border: 2,
+                          border: 2
                         }}
                         p={2}
                         m={2}
