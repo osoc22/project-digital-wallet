@@ -4,14 +4,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
+import { ProcedureProvider } from "./contexts/ProcedureProvider";
+import { TemplatesProvider } from "./contexts/TemplateProvider";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ProcedureProvider>
+        <TemplatesProvider>
+          <App />
+        </TemplatesProvider>
+      </ProcedureProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,27 +1,18 @@
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import StepPreview from "./StepPreview";
-import { contactDetails, theftInfo, bikeInfo } from "../steps";
+import ComponentPreview from "./ComponentPreview";
 import { useCallback, useMemo, useState } from "react";
 import { LinearProgress, Stack } from "@mui/material";
-import { Procedure } from "./ProcedureForm";
+import { useProcedures } from "../contexts/ProcedureProvider";
 
 export default function Preview() {
-  const [procedure] = useState<Procedure>({
-    name: "Bike Theft Report",
-    category: "Justice",
-    description: "Report a bike theft",
-    steps: [contactDetails, theftInfo, bikeInfo],
-  });
+  const { procedure } = useProcedures();
   const [response, setResponse] = useState({});
   const [page, setPage] = useState(0);
   const currentPage = useMemo(() => page + 1, [page]);
-  const maxPage = useMemo(() => procedure.steps.length, [procedure]);
-  const step = useMemo(() => procedure.steps[page], [procedure, page]);
-  const progress = useMemo(
-    () => (currentPage / maxPage) * 100,
-    [currentPage, maxPage]
-  );
+  const maxPage = useMemo(() => procedure?.components?.length ?? 1, [procedure]);
+  const component = useMemo(() => procedure?.components[page], [procedure, page]);
+  const progress = useMemo(() => (currentPage / maxPage) * 100, [currentPage, maxPage]);
 
   const back = useCallback(() => {
     setPage(Math.max(0, page - 1));
@@ -74,13 +65,8 @@ export default function Preview() {
             <Box pt={4}>
               <LinearProgress variant="determinate" value={progress} />
             </Box>
-            <h2>{procedure.name}</h2>
-            <StepPreview
-              step={step}
-              part={currentPage}
-              next={next}
-              back={back}
-            />
+            <h2>{procedure?.name}</h2>
+            {component && <ComponentPreview component={component} part={currentPage} next={next} back={back} />}
             <Box textAlign="center" justifySelf="end">
               Part {currentPage} of {maxPage}
             </Box>

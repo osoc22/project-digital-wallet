@@ -1,25 +1,26 @@
-import * as React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Box from '@mui/material/Box';
-import FieldTemplateTextField from './FieldTemplateTextField';
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Box from "@mui/material/Box";
+import FieldTemplateTextField from "./FieldTemplateTextField";
 
 export default function SimpleAccordion() {
   return (
     <div>
-      <Accordion>
+      <Accordion
+        defaultExpanded={true}
+        sx={{ boxShadow: "none", backgroundColor: "#f7f9fa" }}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Field Templates</Typography>
+          <h3>Template fields</h3>
         </AccordionSummary>
         <AccordionDetails>
-          <Box sx={{p:2, m:1, border:0.5}}>
+          <Box sx={{ p: 2, m: 1, border: 2, borderColor: "#c3cfd9" }}>
             <FieldTemplateTextField />
           </Box>
         </AccordionDetails>

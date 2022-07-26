@@ -31,27 +31,27 @@ import Droppable from "./Droppable";
 export default function ProcedureDesign() {
   const [openDefault, setOpenDefault] = React.useState(true);
 
-  const [items, setItems] = useState([
+  const [procedureComponents, setProcedureComponents] = useState([
     {
       id: "1",
       content: <CanvasComponentPreFilledData
-      title={"Prefilled citizen data"}
-      fields={[{
-        icon: <ContactsIcon />,
-        name: "Name",
-        description: "short text",
-      },
-      {
-        icon: <SwitchAccountIcon />,
-        name: " Last Name",
-        description: "short text",
-      },
-      {
-        icon: <BadgeIcon />,
-        name: "National registry number",
-        description: "short text",
-      }]}
-    />
+        title={"Prefilled citizen data"}
+        fields={[{
+          icon: <ContactsIcon />,
+          name: "Name",
+          description: "short text",
+        },
+        {
+          icon: <SwitchAccountIcon />,
+          name: " Last Name",
+          description: "short text",
+        },
+        {
+          icon: <BadgeIcon />,
+          name: "National registry number",
+          description: "short text",
+        }]}
+      />
     },
     {
       id: "2",
@@ -73,180 +73,182 @@ export default function ProcedureDesign() {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
-  
+
     return result;
   };
 
   return (
     <Grid container>
-      <Grid item xs={2.5}>
-        <Box
-          sx={{
-            border: "0.5px solid #d3d3d3",
-            height: "100%",
-            backgroundColor: "#f5f5f5",
-          }}
-        >
-          <Box>
-            <Box
-              sx={{
-                marginBottom: 3,
-                mx: 0.5,
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <CanvasTabs />
-            </Box>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <SearchInput />
-            </Box>
-          </Box>
+      <DragDropContext onDragEnd={(result) => {
+        const { destination, source, draggableId } = result;
+
+        // item is being dragged to where it came from, do nothing
+        if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
+          return;
+        }
+
+        const orderedItems = reorder(
+          procedureComponents,
+          result.source.index,
+          result.destination?.index ?? 0
+        );
+
+        // @ts-ignore
+        setProcedureComponents(orderedItems);
+      }}>
+        <Grid item xs={2.5}>
           <Box
             sx={{
-              my: 3,
-              px: 1,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+              border: "0.5px solid #d3d3d3",
+              height: "100%",
+              backgroundColor: "#f5f5f5",
             }}
           >
             <Box>
-              <List
-                sx={{ width: "100%" }}
-                component="nav"
-                aria-labelledby="nested-list-subheader"
+              <Box
+                sx={{
+                  marginBottom: 3,
+                  mx: 0.5,
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
               >
-                <ListItemButton onClick={handleClickDefault}>
-                  <ListItemText primary="Default Components" />
-                  {openDefault ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-                <Collapse in={openDefault} timeout="auto" unmountOnExit>
-                  <Box sx={{ my: 2 }}>
+                <CanvasTabs />
+              </Box>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <SearchInput />
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                my: 3,
+                px: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Box>
+                <List
+                  sx={{ width: "100%" }}
+                  component="nav"
+                  aria-labelledby="nested-list-subheader"
+                >
+                  <ListItemButton onClick={handleClickDefault}>
+                    <ListItemText primary="Default Components" />
+                    {openDefault ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                  <Collapse in={openDefault} timeout="auto" unmountOnExit>
+                    <Box sx={{ my: 2 }}>
+                      <Droppable droppableId="canvasDefaultComponents">
+                        //
+                      </Droppable>
+                      <CanvasDefaultComponents
+                        title={"Contact Details"}
+                        fields={[
+                          {
+                            icon: <MailOutlineIcon />,
+                            name: "E-mail address",
+                            description: "short text",
+                          },
+                          {
+                            icon: <MailOutlineIcon />,
+                            name: "Repeat e-mail address",
+                            description: "short text",
+                          },
+                          {
+                            icon: <PhoneIcon />,
+                            name: "Phone number",
+                            description: "short text",
+                          },
+                        ]}
+                      />
+                    </Box>
+
                     <CanvasDefaultComponents
-                      title={"Contact Details"}
+                      title={"Date and location"}
                       fields={[
                         {
-                          icon: <MailOutlineIcon />,
-                          name: "E-mail address",
-                          description: "short text",
+                          icon: <CalendarMonthIcon />,
+                          name: "Date",
+                          description: "date, time",
                         },
                         {
-                          icon: <MailOutlineIcon />,
-                          name: "Repeat e-mail address",
-                          description: "short text",
+                          icon: <LocationOnIcon />,
+                          name: "Location",
+                          description: "Address",
+                        },
+                      ]}
+                    />
+                  </Collapse>
+                </List>
+              </Box>
+              <Box>
+                <List
+                  sx={{ width: "100%" }}
+                  component="nav"
+                  aria-labelledby="nested-list-subheader"
+                >
+                  <ListItemButton onClick={handleClickCustom}>
+                    <ListItemText primary="Custom Components" />
+                    {openCustom ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                  <Collapse in={openCustom} timeout="auto" unmountOnExit>
+                    <CanvasDefaultComponents
+                      title={"Bike theft information"}
+                      fields={[
+                        {
+                          icon: <PedalBikeIcon />,
+                          name: "Bike last seen",
+                          description: "date, time",
                         },
                         {
-                          icon: <PhoneIcon />,
-                          name: "Phone number",
+                          icon: <ContactPageOutlinedIcon />,
+                          name: "Theft identified",
+                          description: "date, time",
+                        },
+                        {
+                          icon: <DescriptionOutlinedIcon />,
+                          name: "Description",
+                          description: "long paragraph",
+                        },
+                        {
+                          icon: <LocationOnIcon />,
+                          name: "Location",
+                          description: "location picker",
+                        },
+                      ]}
+                    />
+                    <CanvasDefaultComponents
+                      title={"Company details"}
+                      fields={[
+                        {
+                          icon: <BusinessOutlinedIcon />,
+                          name: "Basic information",
+                          description: "long paragraph",
+                        },
+                        {
+                          icon: <LocalAtmOutlinedIcon />,
+                          name: "Profit data",
+                          description: "number",
+                        },
+                        {
+                          icon: <ContactPageOutlinedIcon />,
+                          name: "Owner data",
                           description: "short text",
                         },
                       ]}
                     />
-                  </Box>
-
-                  <CanvasDefaultComponents
-                    title={"Date and location"}
-                    fields={[
-                      {
-                        icon: <CalendarMonthIcon />,
-                        name: "Date",
-                        description: "date, time",
-                      },
-                      {
-                        icon: <LocationOnIcon />,
-                        name: "Location",
-                        description: "Address",
-                      },
-                    ]}
-                  />
-                </Collapse>
-              </List>
-            </Box>
-            <Box>
-              <List
-                sx={{ width: "100%" }}
-                component="nav"
-                aria-labelledby="nested-list-subheader"
-              >
-                <ListItemButton onClick={handleClickCustom}>
-                  <ListItemText primary="Custom Components" />
-                  {openCustom ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-                <Collapse in={openCustom} timeout="auto" unmountOnExit>
-                  <CanvasDefaultComponents
-                    title={"Bike theft information"}
-                    fields={[
-                      {
-                        icon: <PedalBikeIcon />,
-                        name: "Bike last seen",
-                        description: "date, time",
-                      },
-                      {
-                        icon: <ContactPageOutlinedIcon />,
-                        name: "Theft identified",
-                        description: "date, time",
-                      },
-                      {
-                        icon: <DescriptionOutlinedIcon />,
-                        name: "Description",
-                        description: "long paragraph",
-                      },
-                      {
-                        icon: <LocationOnIcon />,
-                        name: "Location",
-                        description: "location picker",
-                      },
-                    ]}
-                  />
-                  <CanvasDefaultComponents
-                    title={"Company details"}
-                    fields={[
-                      {
-                        icon: <BusinessOutlinedIcon />,
-                        name: "Basic information",
-                        description: "long paragraph",
-                      },
-                      {
-                        icon: <LocalAtmOutlinedIcon />,
-                        name: "Profit data",
-                        description: "number",
-                      },
-                      {
-                        icon: <ContactPageOutlinedIcon />,
-                        name: "Owner data",
-                        description: "short text",
-                      },
-                    ]}
-                  />
-                </Collapse>
-              </List>
+                  </Collapse>
+                </List>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </Grid>
-      <Grid item xs={9.5}>
-        
-          <DragDropContext onDragEnd={(result) => {
-            const { destination, source, draggableId } = result;
-
-            // item is being dragged to where it came from, do nothing
-            if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
-              return;
-            }
-        
-            const orderedItems = reorder(
-              items,
-              result.source.index,
-              result.destination?.index ?? 0
-            );
-        
-            // @ts-ignore
-            setItems(orderedItems);
-          }}>
-            <Droppable droppableId="canvasDroppable" direction="horizontal">
-              {(provided) => (
-                <Box
+        </Grid>
+        <Grid item xs={9.5}>
+          <Droppable droppableId="canvasDroppable" direction="horizontal">
+            {(provided) => (
+              <Box
                 ref={provided.innerRef}
                 sx={{
                   display: "flex",
@@ -257,32 +259,32 @@ export default function ProcedureDesign() {
                   height: "100vh",
                 }}
               >
-                  {items.map((item, index) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided) => (
-                        <Box
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          sx={{
-                            borderRadius: 1,
-                            border: 2,
-                          }}
-                          p={2}
-                          m={2}
-                        >
-                          {item.content}
-                        </Box>
-                      )}
-                    </Draggable>
-                  ))}
-                  <Button variant="contained">+ Add Component</Button>
-                  {provided.placeholder}
-                </Box>
-              )}
-            </Droppable>
-          </DragDropContext>
-      </Grid>
+                {procedureComponents.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided) => (
+                      <Box
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        sx={{
+                          borderRadius: 1,
+                          border: 2,
+                        }}
+                        p={2}
+                        m={2}
+                      >
+                        {item.content}
+                      </Box>
+                    )}
+                  </Draggable>
+                ))}
+                <Button variant="contained">+ Add Component</Button>
+                {provided.placeholder}
+              </Box>
+            )}
+          </Droppable>
+        </Grid>
+      </DragDropContext>
     </Grid>
   );
 }

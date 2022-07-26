@@ -1,19 +1,25 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { IconButton, Stack } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function BasicTextFields() {
+export default function BasicTextFields({
+  label,
+  deleteField,
+  fieldName,
+}: {
+  label: string;
+  deleteField: (fieldName: string) => void;
+  fieldName: string;
+}) {
   return (
-    <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { pl:1.8, mx:'auto', width: '95%'},
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <p style={{marginBottom:-1}}>E-mail address</p>
-      <TextField id="outlined-basic" label="" variant="outlined" size='small' />
-    </Box>
+    <Stack direction="column" spacing={1} m={1}>
+      <IconButton
+        sx={{ width: "auto", ml: "auto" }}
+        onClick={() => deleteField(fieldName)}
+      >
+        <DeleteIcon htmlColor="#4b5c6b" />
+      </IconButton>
+      <TextField id="outlined-basic" label={label} variant="outlined" />
+    </Stack>
   );
 }
