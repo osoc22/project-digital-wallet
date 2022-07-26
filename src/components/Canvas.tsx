@@ -111,7 +111,8 @@ export default function ProcedureDesign() {
               sx={{
                 border: "0.5px solid #d3d3d3",
                 height: "100%",
-                backgroundColor: "#f5f5f5"
+                backgroundColor: "#f7f9fa",
+                borderRight: "2px solid #c3cfd9"
               }}
             >
               <Box>
