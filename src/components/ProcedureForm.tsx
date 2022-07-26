@@ -38,7 +38,7 @@ export default function ProcedureForm() {
   const submit = useCallback(
     (procedure: Procedure) => {
       resetProcedure({ ...procedure, components: [] });
-      navigate("design");
+      navigate("/canvas");
     },
     [navigate, resetProcedure]
   );

@@ -42,7 +42,7 @@ export const ProcedureProvider = ({ children }: { children: ReactNode }) => {
   const [procedure, setProcedure] = useState<Procedure | null>(null);
 
   const resetProcedure = useCallback((procedure: Procedure) => {
-    setProcedure(procedure);
+    setProcedure({...procedure, components: procedure.components?.map(c => ({ ...c, id: uuidv4() })) ?? []});
   }, []);
 
   const addComponent = useCallback((component: Omit<Component, "id">) => {

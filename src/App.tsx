@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import Preview from "./components/Preview";
 import Builder from "./components/Builder";
+import Canvas from "./components/Canvas";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/" element={<ProcedureForm />} />
           <Route path="preview" element={<Preview />} />
           <Route path="builder" element={<Builder />} />
+          <Route path="canvas" element={<Canvas />} />
         </Routes>
       </Box>
     </>
