@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -25,9 +25,39 @@ import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import BusinessOutlinedIcon from "@mui/icons-material/BusinessOutlined";
 import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
+import { DragDropContext, Draggable } from "react-beautiful-dnd";
+import Droppable from "./Droppable";
 
 export default function ProcedureDesign() {
   const [openDefault, setOpenDefault] = React.useState(true);
+
+  const [items, setItems] = useState([
+    {
+      id: "1",
+      content: <CanvasComponentPreFilledData
+      title={"Prefilled citizen data"}
+      fields={[{
+        icon: <ContactsIcon />,
+        name: "Name",
+        description: "short text",
+      },
+      {
+        icon: <SwitchAccountIcon />,
+        name: " Last Name",
+        description: "short text",
+      },
+      {
+        icon: <BadgeIcon />,
+        name: "National registry number",
+        description: "short text",
+      }]}
+    />
+    },
+    {
+      id: "2",
+      content: <CanvasComponentUnfilledData />
+    }
+  ]);
 
   const handleClickDefault = () => {
     setOpenDefault(!openDefault);
@@ -37,6 +67,14 @@ export default function ProcedureDesign() {
 
   const handleClickCustom = () => {
     setOpenCustom(!openCustom);
+  };
+
+  const reorder = (list: any, startIndex: any, endIndex: any) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+  
+    return result;
   };
 
   return (
@@ -188,37 +226,62 @@ export default function ProcedureDesign() {
         </Box>
       </Grid>
       <Grid item xs={9.5}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
-          <CanvasComponentPreFilledData
-            title={"Prefilled citizen data"}
-            fields={[
-              {
-                icon: <ContactsIcon />,
-                name: "Name",
-                description: "short text",
-              },
-              {
-                icon: <SwitchAccountIcon />,
-                name: " Last Name",
-                description: "short text",
-              },
-              {
-                icon: <BadgeIcon />,
-                name: "National registry number",
-                description: "short text",
-              },
-            ]}
-          />
-          <CanvasComponentUnfilledData />
-          <Button variant="contained">+ Add Component</Button>
-        </Box>
+        
+          <DragDropContext onDragEnd={(result) => {
+            const { destination, source, draggableId } = result;
+
+            // item is being dragged to where it came from, do nothing
+            if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
+              return;
+            }
+        
+            const orderedItems = reorder(
+              items,
+              result.source.index,
+              result.destination?.index ?? 0
+            );
+        
+            // @ts-ignore
+            setItems(orderedItems);
+          }}>
+            <Droppable droppableId="canvasDroppable" direction="horizontal">
+              {(provided) => (
+                <Box
+                ref={provided.innerRef}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100vh",
+                }}
+              >
+                  {items.map((item, index) => (
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                      {(provided) => (
+                        <Box
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          sx={{
+                            borderRadius: 1,
+                            border: 2,
+                          }}
+                          p={2}
+                          m={2}
+                        >
+                          {item.content}
+                        </Box>
+                      )}
+                    </Draggable>
+                  ))}
+                  <Button variant="contained">+ Add Component</Button>
+                  {provided.placeholder}
+                </Box>
+              )}
+            </Droppable>
+          </DragDropContext>
       </Grid>
     </Grid>
   );
