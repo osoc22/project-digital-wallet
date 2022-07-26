@@ -28,6 +28,7 @@ import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import Droppable from "./Droppable";
 import { useTemplates } from "../contexts/TemplateProvider";
+import TextFieldsOutlinedIcon from '@mui/icons-material/TextFieldsOutlined';
 
 export default function ProcedureDesign() {
   const { componentTemplates } = useTemplates();
@@ -60,6 +61,13 @@ export default function ProcedureDesign() {
       content: <CanvasComponentUnfilledData />
     }
   ]);
+
+  const iconMap: {[key: string]: any} = {
+    integer: <PhoneIcon/>,
+    string: <TextFieldsOutlinedIcon/>,
+    "date-time": <CalendarMonthIcon/>,
+    email: <MailOutlineIcon/>,
+  }
 
   const handleClickDefault = () => {
     setOpenDefault(!openDefault);
@@ -149,7 +157,11 @@ export default function ProcedureDesign() {
                                   >
                                     <CanvasDefaultComponents
                                       title={item.name}
-                                      fields={[]}
+                                      fields={Object.keys(item.properties).map(p => ({
+                                        icon: iconMap[item.properties[p].format ?? item.properties[p].type], 
+                                        name: p, 
+                                        description: item.properties[p].format ?? item.properties[p].type
+                                      }))}
                                     />
                                   </Box>
                                 )}
