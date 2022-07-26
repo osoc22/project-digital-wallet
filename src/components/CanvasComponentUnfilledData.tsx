@@ -10,7 +10,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Modal } from "@mui/material";
 
-export default function ComponentUnfilledData() {
+export default function ComponentUnfilledData({
+  id,
+  deleteComponentById
+}: {
+  id: string;
+  deleteComponentById: (id: string) => void;
+}) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -23,7 +29,7 @@ export default function ComponentUnfilledData() {
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
-    p: 4,
+    p: 4
   };
 
   return (
@@ -35,14 +41,14 @@ export default function ComponentUnfilledData() {
         sx={{
           minHeight: "225px",
           backgroundColor: "#f5f5f5",
-          border: "1px solid gray",
+          border: "1px solid gray"
         }}
       >
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            border: "1px solid gray",
+            border: "1px solid gray"
           }}
         >
           <Box sx={{ marginLeft: "20px", my: "10px" }}>
@@ -58,21 +64,16 @@ export default function ComponentUnfilledData() {
             <IconButton>
               <EditIcon />
             </IconButton>
-            <IconButton>
-              <DeleteOutlineIcon
-                onClick={() => {
-                  setOpen(!open);
-                }}
-              />
+            <IconButton
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <DeleteOutlineIcon />
               <Modal open={open} onClose={() => setOpen(!open)}>
                 <Box sx={style}>
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h6"
-                    component="h2"
-                  >
-                    Are you sure you want to delete the component
-                    &lt;component-name&gt;?
+                  <Typography id="modal-modal-title" variant="h6" component="h2">
+                    Are you sure you want to delete the component &lt;component-name&gt;?
                   </Typography>
                   <Button
                     variant="outlined"
@@ -85,7 +86,7 @@ export default function ComponentUnfilledData() {
                   <Button
                     variant="contained"
                     onClick={() => {
-                      setOpen(!open);
+                      deleteComponentById(id);
                     }}
                   >
                     Delete
@@ -100,7 +101,7 @@ export default function ComponentUnfilledData() {
             display: "flex",
             alignItems: "center",
             height: "150px",
-            marginLeft: "20px",
+            marginLeft: "20px"
           }}
         >
           <Button

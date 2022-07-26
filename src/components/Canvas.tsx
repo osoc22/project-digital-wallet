@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -11,13 +11,9 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import CanvasDefaultComponents from "./CanvasDefaultcomponents";
 import CanvasComponentPreFilledData from "./CanvasComponentPreFilledData";
-import CanvasComponentUnfilledData from "./CanvasComponentUnfilledData";
 import CanvasTabs from "./CanvasTabs";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PhoneIcon from "@mui/icons-material/Phone";
-import ContactsIcon from "@mui/icons-material/Contacts";
-import SwitchAccountIcon from "@mui/icons-material/SwitchAccount";
-import BadgeIcon from "@mui/icons-material/Badge";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
@@ -27,53 +23,31 @@ import BusinessOutlinedIcon from "@mui/icons-material/BusinessOutlined";
 import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import Droppable from "./Droppable";
+import { Component, Procedure, useProcedures } from "../contexts/ProcedureProvider";
 import { useTemplates } from "../contexts/TemplateProvider";
-import TextFieldsOutlinedIcon from '@mui/icons-material/TextFieldsOutlined';
+import TextFieldsOutlinedIcon from "@mui/icons-material/TextFieldsOutlined";
+import { useNavigate } from "react-router-dom";
+import { Stack } from "@mui/material";
+import CanvasComponentUnfilledData from "./CanvasComponentUnfilledData";
 
 export default function ProcedureDesign() {
+  const navigate = useNavigate();
+  const { procedure, resetProcedure, addComponent, deleteComponentById } = useProcedures();
   const { componentTemplates } = useTemplates();
   const [openDefault, setOpenDefault] = React.useState(true);
 
-  const [procedureComponents, setProcedureComponents] = useState([
-    {
-      id: "1",
-      content: <CanvasComponentPreFilledData
-        title={"Prefilled citizen data"}
-        fields={[{
-          icon: <ContactsIcon />,
-          name: "Name",
-          description: "short text",
-        },
-        {
-          icon: <SwitchAccountIcon />,
-          name: " Last Name",
-          description: "short text",
-        },
-        {
-          icon: <BadgeIcon />,
-          name: "National registry number",
-          description: "short text",
-        }]}
-      />
-    },
-    {
-      id: "2",
-      content: <CanvasComponentUnfilledData />
-    }
-  ]);
-
-  const iconMap: {[key: string]: any} = {
-    integer: <PhoneIcon/>,
-    string: <TextFieldsOutlinedIcon/>,
-    "date-time": <CalendarMonthIcon/>,
-    email: <MailOutlineIcon/>,
-  }
+  const iconMap: { [key: string]: any } = {
+    integer: <PhoneIcon />,
+    string: <TextFieldsOutlinedIcon />,
+    "date-time": <CalendarMonthIcon />,
+    email: <MailOutlineIcon />
+  };
 
   const handleClickDefault = () => {
     setOpenDefault(!openDefault);
   };
 
-  const [openCustom, setOpenCustom] = React.useState(true);
+  const [openCustom, setOpenCustom] = React.useState(false);
 
   const handleClickCustom = () => {
     setOpenCustom(!openCustom);
@@ -91,17 +65,22 @@ export default function ProcedureDesign() {
     <Grid container>
       <DragDropContext
         onDragEnd={result => {
-          const { destination, source, draggableId } = result;
+          const { destination, source } = result;
 
           // item is being dragged to where it came from, do nothing
           if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
             return;
           }
 
-          const orderedItems = reorder(procedureComponents, result.source.index, result.destination?.index ?? 0);
+          let newComponents = procedure?.components ?? [];
 
-          // @ts-ignore
-          setProcedureComponents(orderedItems);
+          if (destination.droppableId === source.droppableId) {
+            newComponents = reorder(newComponents, source.index, destination.index) as any[];
+          } else {
+            newComponents?.splice(destination.index, 0, componentTemplates[source.index]);
+          }
+
+          resetProcedure({ ...procedure, components: newComponents as any[] } as Procedure);
         }}
       >
         <Grid item xs={2.5}>
@@ -144,7 +123,7 @@ export default function ProcedureDesign() {
                   </ListItemButton>
                   <Collapse in={openDefault} timeout="auto" unmountOnExit>
                     <Box sx={{ my: 2 }}>
-                      <Droppable droppableId="canvasDroppable" direction="horizontal">
+                      <Droppable droppableId="templateDroppable" direction="horizontal" isDropDisabled={true}>
                         {provided => (
                           <Box ref={provided.innerRef}>
                             {componentTemplates.map((item, index) => (
@@ -158,8 +137,8 @@ export default function ProcedureDesign() {
                                     <CanvasDefaultComponents
                                       title={item.name}
                                       fields={Object.keys(item.properties).map(p => ({
-                                        icon: iconMap[item.properties[p].format ?? item.properties[p].type], 
-                                        name: p, 
+                                        icon: iconMap[item.properties[p].format ?? item.properties[p].type],
+                                        name: p,
                                         description: item.properties[p].format ?? item.properties[p].type
                                       }))}
                                     />
@@ -234,43 +213,50 @@ export default function ProcedureDesign() {
           </Box>
         </Grid>
         <Grid item xs={9.5}>
-          <Droppable droppableId="canvasDroppable" direction="horizontal">
-            {provided => (
-              <Box
-                ref={provided.innerRef}
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100vh"
-                }}
-              >
-                {procedureComponents.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {provided => (
-                      <Box
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        sx={{
-                          borderRadius: 1,
-                          border: 2
-                        }}
-                        p={2}
-                        m={2}
-                      >
-                        {item.content}
-                      </Box>
-                    )}
-                  </Draggable>
-                ))}
-                <Button variant="contained">+ Add Component</Button>
-                {provided.placeholder}
-              </Box>
-            )}
-          </Droppable>
+          <Stack direction="row-reverse" alignItems="center" spacing={2} px={4}>
+            <Button variant="contained" onClick={() => addComponent({} as Component)} sx={{ height: "fit-content" }}>
+              + Add Component
+            </Button>
+            <Droppable droppableId="canvasDroppable" direction="horizontal">
+              {provided => (
+                <Box
+                  ref={provided.innerRef}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    height: "100vh",
+                    overflowX: "auto",
+                    alignItems: "center",
+                    minWidth: "800px"
+                  }}
+                >
+                  {procedure?.components.map((item, index) => (
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                      {provided => (
+                        <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          {item.properties ? (
+                            <CanvasComponentPreFilledData
+                              id={item.id}
+                              deleteComponentById={deleteComponentById}
+                              title={item.name}
+                              fields={Object.keys(item.properties).map(p => ({
+                                icon: iconMap[item.properties[p].format ?? item.properties[p].type],
+                                name: p,
+                                description: item.properties[p].format ?? item.properties[p].type
+                              }))}
+                            />
+                          ) : (
+                            <CanvasComponentUnfilledData id={item.id} deleteComponentById={deleteComponentById} />
+                          )}
+                        </Box>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </Box>
+              )}
+            </Droppable>
+          </Stack>
         </Grid>
       </DragDropContext>
     </Grid>
