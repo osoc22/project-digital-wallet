@@ -4,9 +4,9 @@ const contactDetails: Component = {
   id: "57ddc425-7d98-4ac2-b4d1-8c8c2410ed9a",
   name: "Contact details",
   properties: {
-    email: { type: "string" },
-    repeatEmail: { type: "string", const: { $data: "1/email" } },
-    phone: { type: "string" },
+    email: { type: "string", format: "email" },
+    repeatEmail: { type: "string", format: "email", const: { $data: "1/email" } },
+    phone: { type: "integer" },
   },
   required: ["email", "repeatEmail", "phone"],
 };
@@ -16,7 +16,7 @@ const theftInfo: Component = {
   name: "Theft info",
   properties: {
     theftDate: {
-      type: "string",
+      type: "string", 
       format: "date-time",
     },
     theftLocation: {
