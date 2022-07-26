@@ -1,6 +1,5 @@
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 const Navbar = ({
@@ -10,9 +9,9 @@ const Navbar = ({
   saveButton,
 }: {
   page: string;
-  title: string;
-  actionElement: JSX.Element;
-  saveButton: JSX.Element;
+  title?: string;
+  actionElement?: JSX.Element;
+  saveButton?: JSX.Element;
 }) => {
   return (
     <AppBar
@@ -39,9 +38,6 @@ const Navbar = ({
         <Stack direction="row" spacing={2}>
           {actionElement}
           {saveButton}
-          {/* <Button variant="contained" onClick={}>
-            Save
-          </Button> */}
         </Stack>
       </Stack>
     </AppBar>
