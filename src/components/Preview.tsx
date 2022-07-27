@@ -33,15 +33,15 @@ export default function Preview() {
     <Stack spacing={20}>
       <Navbar
         page="Preview Mode"
-        actionElement={
-          <Button variant="text" onClick={() => navigate("/canvas")}>
-            Back
-          </Button>
-        }
-        saveButton={
-          <Button variant="contained" onClick={() => alert(JSON.stringify(procedure, null, 2))}>
-            Export
-          </Button>
+        elements={
+          <>
+            <Button variant="text" onClick={() => alert(JSON.stringify(procedure, null, 2))}>
+              Export
+            </Button>
+            <Button variant="contained" onClick={() => navigate("/canvas")}>
+              Back
+            </Button>
+          </>
         }
       />
       <Container maxWidth="xs" sx={{ height: "100vh", alignSelf: "center" }}>

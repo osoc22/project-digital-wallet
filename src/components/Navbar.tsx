@@ -1,17 +1,16 @@
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
+import { ReactNode } from "react";
 
 const Navbar = ({
   page,
   title,
-  actionElement,
-  saveButton,
+  elements
 }: {
   page: string;
   title?: string;
-  actionElement?: JSX.Element;
-  saveButton?: JSX.Element;
+  elements?: ReactNode;
 }) => {
   return (
     <AppBar
@@ -36,8 +35,7 @@ const Navbar = ({
           color="black"
         >{title}</Typography>
         <Stack direction="row" spacing={2}>
-          {actionElement}
-          {saveButton}
+          {elements}
         </Stack>
       </Stack>
     </AppBar>

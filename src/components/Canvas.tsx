@@ -75,12 +75,14 @@ export default function ProcedureDesign() {
       <Navbar
         page="Procedure Canvas"
         title={procedure?.name}
-        actionElement={
-          <Button variant="text" onClick={() => navigate("/preview")}>
-            Preview
-          </Button>
+        elements={
+          <>
+            <Button variant="text" onClick={() => navigate("/preview")}>
+              Preview
+            </Button>
+            <Button variant="contained">Save Procedure</Button>
+          </>
         }
-        saveButton={<Button variant="contained">Save Procedure</Button>}
       />
       <Grid container>
         <DragDropContext

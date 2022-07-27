@@ -111,15 +111,15 @@ export default function Builder() {
       <Navbar
         page="Component Builder"
         title="Title"
-        actionElement={
-          <Button variant="text" onClick={() => navigate("/canvas")}>
-            Cancel
-          </Button>
-        }
-        saveButton={
-          <Button variant="contained" onClick={() => navigate("/canvas")}>
-            Save Component
-          </Button>
+        elements={
+          <>
+            <Button variant="text" onClick={() => navigate("/canvas")}>
+              Cancel
+            </Button>
+            <Button variant="contained" onClick={() => navigate("/canvas")}>
+              Save Component
+            </Button>
+          </>
         }
       />
       <div className="builder-container">
