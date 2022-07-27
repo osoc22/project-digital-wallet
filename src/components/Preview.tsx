@@ -105,8 +105,8 @@ export default function Preview() {
               </Box>
             </Stack>
             <Modal open={open} onClose={() => setOpen(!open)}>
-              <Stack sx={style} direction="column" spacing={2}>
-                <Box sx={{ overflowY: "scroll" }}>
+              <Stack sx={style} direction="column" spacing={2} justifyContent="space-between">
+                <Box sx={{ overflowY: "scroll", flexGrow: 1 }}>
                   <pre>{JSON.stringify(procedure, null, 2)}</pre>
                 </Box>
                 <Button
