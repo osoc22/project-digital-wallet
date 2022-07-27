@@ -23,7 +23,7 @@ const Navbar = ({
         boxShadow: "none",
       }}
     >
-      <Stack direction="row" justifyContent="space-between" p={2}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" p={2}>
         <Typography
           color="#788896"
           variant="h5"
