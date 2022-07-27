@@ -1,10 +1,27 @@
 footer {
-	padding: 2rem 0;
+	padding: 1rem 0;
 	background-color: #0a0839;
 }
 
+.footer-container {
+    display: flex;
+}
+
+.footer-logo-container {
+  display:flex;
+  align-items:center;
+  width:300px;
+}
+
+.footer-logo-container p {
+    text-align: left;
+    font-size:20px;
+    margin-left:20px;
+
+}
+
 footer img {
-	max-width: 10rem;
+	max-width: 5rem;
 }
 
 footer a,
@@ -12,5 +29,3 @@ footer p {
 	text-align: right;
 	color: white;
 }
-
-

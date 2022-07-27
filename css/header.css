@@ -1,8 +1,11 @@
 /* hero */
 
 .hero {
-	background-color: rgba(0,0,0,0.05);
-	margin-bottom: 5rem;
+  background: #5B7999;
+  background-image: url("../img/background-shapes.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 5rem;
 }
 
 	@media only screen and (min-width: 30em) {
@@ -71,9 +74,9 @@
 		height: 50rem;
 		position: absolute;
 		z-index: -1;
-		background-image: url("../img/osoc-emblem.png");
-		background-size: contain;
-		background-repeat: no-repeat;
+		/* background-image: url("../img/background-shapes.png");
+		background-size: cover;
+		background-repeat: no-repeat; */
 		right: -25rem;
 		bottom: -5rem;
 	}
@@ -88,13 +91,19 @@
 	margin-bottom: 2rem;
 }
 
+.hero-title span{
+  font-weight: normal;
+}
+
 .hero-intro {
 	font-size: 1.1rem;
 	line-height: 1.4;
-	font-family: "Montserrat", sans-serif;
+	font-family: Helvetica,
+    Arial,
+    sans-serif;
 	color: #555;
 	margin-bottom: 1rem;
-	font-weight: 300;
+	font-weight: 100;
 }
 
 	@media only screen and (min-width: 48em) {

@@ -1,5 +1,5 @@
 .project-section > .row {
-	margin-bottom: 4rem;
+	margin-bottom: 8rem;
 }
 
 /* ipad-ish image */
@@ -10,7 +10,7 @@
 	border-radius: 5px;
 	width: 100%;
 	background-color: rgba(0,0,0,0.03);
-	margin: 3rem 0 2rem;
+	margin: 5rem 0 2rem;
 }
 
 	@media only screen and (min-width: 64em) {
@@ -29,6 +29,36 @@
 
 /* team and partner section */
 
+.team-member {
+  display:flex;
+  justify-content: space-around;
+  align-items:center;
+}
+
+.partners {
+  display:flex;
+  justify-content: space-between;
+
+}
+
+.partners img {
+  width:80px;
+}
+
+.partners-title {
+  width:100px;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile-text{
+  width:300px;
+  margin-left:50px;
+}
 
 .project-section .team,
 .project-section .partners {
@@ -39,4 +69,58 @@ ul.team li,
 ul.partners li {
 	padding: 1rem 0;
 	list-style: none;
+}
+
+.team-coaches-container {
+  display:flex;
+  justify-content: space-between;
+}
+
+.partners-container {
+  display: flex;
+  justify-content: space-between;
+  width:900px;
+}
+
+.partners-logo-container {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+
+.partners-logo-container a{
+  margin-left:20px;
+  width:100%;
+}
+
+#triangle-shape{
+  width: 30%;
+  transform: rotate(180deg);
+  position: relative;
+  bottom:110px;
+  left:450px;
+  margin-bottom: -110px;
+}
+
+#circle-shape {
+  transform: rotate(-90deg);
+  position: relative;
+  top:130px;
+  left:400px;
+  width: 30%;
+  margin-top: -130px;
+}
+
+#partners-title{
+  text-align:center;
+}
+
+#bosa-logo{
+  width:160px;
+}
+
+#io-title{
+  width: 500px;
 }

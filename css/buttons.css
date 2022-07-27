@@ -2,7 +2,7 @@
 
 .button {
 	text-decoration: none;
-	background-color: #f14a3b;
+	background-color: #5B7999;
 	color: white;
 	font-family: "Montserrat", sans-serif;
 	padding: 0.7rem 0.95rem;
@@ -12,21 +12,23 @@
 	display: inline-block;
 	text-align: center;
 	border: 0;
+  border-radius: 5px;
 }
 
 	.button:hover {
-		background-color: #FF5046;
+		background-color: #FFFF;
+    color:#5B7999;
 	}
 
 .button--alt {
 	background-color: white;
-	border: 1px solid #f14a3b;
+	border: 1px solid #5B7999;
 	font-family: "Montserrat", sans-serif;
-	color: #f14a3b;
+	color: #5B7999;
 }
 
 	.button--alt:hover {
-		color: white;
+		color: #5B7999;
 	}
 
 .button--narrow {
