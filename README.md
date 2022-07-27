@@ -1,70 +1,66 @@
 # Pleasant Procedures
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+This is the Pleasant Procedures / Government Procedure Builder project from Open Summer of Code 2022. Together with our partners at [BOSA](https://bosa.belgium.be/en) and [IO Digital](https://www.iodigital.com/en) we built a proof-of-concept process builder, part of the larger Digital Wallet app for Belgium.
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Features](#Features)
+  - [Procedure Setup](#Procedure_Setup)
+  - [Procedure Canvas](#Procedure_Canvas)
+  - [Component Builder](#Component_Builder)
+  - [Preview](#Preview)
+- [Deployment](#Deployment)
+  - [Requirements](#Requirements)
+  - [Local](#Local)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Procedure Setup
 
-### `npm test`
+This is the start screen (for an example, see [pleasant-procedures.osoc.be](https://pleasant-procedures.osoc.be/)) where users will start their interaction with the application. Here, they can give the procedure a name, a category (which government department the procedure belongs to) and a description.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Procedure Canvas
 
-### `npm run build`
+The following screen is the procedure canvas. As the name implies, it is the canvas where the procedure can be modeled visually. Components from the library on the left side can be dragged onto the canvas on the right. A procedure is made up of one or more components. Pre-made components are available to the user, but the user can also choose to create a blank component and edit it. The files associated with this part of the application are located in the `src/components` directory: `Canvas.tsx`, `CanvasComponentPreFilledData.tsx`, `CanvasComponentUnfilledData.tsx`, `CanvasDefaultComponent.tsx`, `CanvasTabs.tsx`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Component Builder
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The component builder is the screen where the components from the procedure canvas can be edited. A component consists of one or multiple fields. The fields represent what the citizen will interact with (or what question will be asked to the citizen in the Digital Wallet app). The user of the Procedure Builder can edit the types of the fields and save the collection of fields as a component. Fields can be dragged from the left into the middle and also be dragged around to be reordered. The associated files are in the `src/components` directory: `Builder.tsx`, `BuilderMainContainer.tsx`, `Droppable.tsx`, `FieldsLibrary.tsx`, `FieldTemplates.tsx`, `FieldTemplateTextField.tsx`, `FieldTypeSelect.tsx`, `FieldTypes.tsx`, `FieldType.tsx`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Note for the `src/Components/Droppable.tsx` file: we have created a wrapper for this React component, see [this issue](https://github.com/atlassian/react-beautiful-dnd/issues/2399). We are using [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) as the drag and drop library but the library is not being maintained anymore, as it seems. The last supported version of React.js was 16 for this library and we are using React version 18.
 
-### `npm run eject`
+### Preview
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The preview screen is the last screen in the flow of the application. When clicking the ‘Preview’ button in the procedure canvas, the user gets taken to the mobile view of what the citizen will see, with the correct procedure components. The file associated with this part is the `src/components/Preview.tsx` file.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Deployment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Requirements
+- [Git](https://git-scm.com/) 
+- [Node.js](https://nodejs.org/en/) (Minimal Node.js version 14, minimal npm version 5.6)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Local
 
-## Learn More
+1. Clone the project
+```
+git clone https://github.com/osoc22/project-digital-wallet
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Navigate to the folder
+```
+cd project-digital-wallet
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Install the dependencies
+```
+npm install
+```
 
-### Code Splitting
+4. Start the application
+```
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+5. Open the shown url in your browser, by default http://localhost:3000 
