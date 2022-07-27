@@ -14,7 +14,7 @@ export default function CenteredTabs() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Tabs value={value} onChange={handleChange} centered>
+    <Tabs value={value} onChange={handleChange} centered variant="fullWidth">
         <Tab
           icon={<DashboardIcon />}
           iconPosition="start"
@@ -24,6 +24,7 @@ export default function CenteredTabs() {
           icon={<AccountTreeIcon />}
           iconPosition="start"
           label="Procedures"
+          disabled
         />
       </Tabs>
     </Box>
