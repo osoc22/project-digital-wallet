@@ -6,6 +6,7 @@ import { Button, LinearProgress, Stack } from "@mui/material";
 import { useProcedures } from "../contexts/ProcedureProvider";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "@mui/material";
 
 export default function Preview() {
   const navigate = useNavigate();
@@ -29,13 +30,28 @@ export default function Preview() {
     [response, page, maxPage]
   );
 
+  const [open, setOpen] = useState(false);
+
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    height: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4
+  };
+
   return (
     <Stack spacing={20}>
       <Navbar
         page="Preview Mode"
         elements={
           <>
-            <Button variant="text" onClick={() => alert(JSON.stringify(procedure, null, 2))}>
+            <Button variant="text" onClick={() => setOpen(!open)}>
               Export
             </Button>
             <Button variant="contained" onClick={() => navigate("/canvas")}>
@@ -88,6 +104,20 @@ export default function Preview() {
                 Part {currentPage} of {maxPage}
               </Box>
             </Stack>
+            <Modal open={open} onClose={() => setOpen(!open)}>
+              <Stack sx={style} direction="column" spacing={2}>
+                <Box sx={{ overflowY: "scroll" }}>
+                  <pre>{JSON.stringify(procedure, null, 2)}</pre>
+                </Box>
+                <Button
+                  variant="contained"
+                  sx={{ alignSelf: "end", width: "fit-content" }}
+                  onClick={() => setOpen(!open)}
+                >
+                  Close
+                </Button>
+              </Stack>
+            </Modal>
           </Box>
         </Box>
       </Container>
