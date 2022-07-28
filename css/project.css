@@ -45,8 +45,10 @@
   width:80px;
 }
 
-.partners-title {
-  width:100px;
+#partners-title {
+  width:250px;
+  text-align:left;
+  margin-bottom: 30px;
 }
 
 .profile-img {
@@ -71,10 +73,11 @@ ul.partners li {
 	list-style: none;
 }
 
+@media (min-width: 1200px) {
 .team-coaches-container {
   display:flex;
   justify-content: space-between;
-}
+}}
 
 .partners-container {
   display: flex;
@@ -83,10 +86,16 @@ ul.partners li {
 }
 
 .partners-logo-container {
+  display: block;
+}
+
+@media (min-width: 1200px) {
+.partners-logo-container {
   display: flex;
   width: 40%;
   justify-content: space-between;
   margin-top: 20px;
+}
 }
 
 
@@ -111,10 +120,6 @@ ul.partners li {
   left:400px;
   width: 30%;
   margin-top: -130px;
-}
-
-#partners-title{
-  text-align:center;
 }
 
 #bosa-logo{
