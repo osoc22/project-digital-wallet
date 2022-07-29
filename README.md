@@ -6,6 +6,9 @@ This is the Pleasant Procedures / Government Procedure Builder project from Open
 
 ## Table of Contents
 
+- [Wireframes](#Wireframes)
+  - [MVP](#mvp)
+  - [Extended](#extended)
 - [Features](#Features)
   - [Procedure Setup](#Procedure_Setup)
   - [Procedure Canvas](#Procedure_Canvas)
@@ -14,6 +17,18 @@ This is the Pleasant Procedures / Government Procedure Builder project from Open
 - [Deployment](#Deployment)
   - [Requirements](#Requirements)
   - [Local](#Local)
+
+## Wireframes
+
+The project includes two types of wireframes: the minimum viable product (MVP) and extended wireframes.
+
+### MVP
+
+The MVP wireframes is what the delivered (and deployed) version are built on. Find them in the [`wireframes/mvp`](./wireframes/mvp/) directory.
+
+### Extended
+
+The extended wireframes is what the team envisioned for the future of the application and how it could look like in the future. Find these under the [`wireframes/extended`](./wireframes/extended/) directory.
 
 ## Features
 
